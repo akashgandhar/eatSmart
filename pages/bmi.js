@@ -1,7 +1,9 @@
+import UserContext from "@/components/context/userContext";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 
 export default function Bmi() {
+  const user = useContext(UserContext);
   return (
     <>
       <div>name</div>
@@ -11,6 +13,10 @@ export default function Bmi() {
       {/* <div>skip</div> */}
       <Link href="/foodCheck">skip</Link>
       <Link href="/foodCheck">submit</Link>
+
+
+
+      <p>you are logged in as --------  {user}</p>
     </>
   );
 }

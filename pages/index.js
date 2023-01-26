@@ -1,10 +1,25 @@
-import Head from 'next/head'
-import Login from './login'
-import Link from 'next/link'
-
+import Head from "next/head";
+import Login from "./login";
+import Link from "next/link";
+import UserState from "@/components/context/userState";
+import { useContext } from "react";
+import UserContext from "@/components/context/userContext";
+import { async } from "@firebase/util";
+import { GoogleAuthProvider } from "firebase/auth";
 
 
 export default function Home() {
+  const provider = new GoogleAuthProvider();
+
+  const u = useContext(UserContext);3
+
+
+  const handleGoogle = ()=>{
+
+  }
+
+
+
   return (
     <>
       <Head>
@@ -13,10 +28,131 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Link href="/login">login</Link>
-      <Link href="/register">signup</Link>
-      <Link href="/bmi">guest</Link>
-      
+
+      <UserState>
+        <div>
+          <div class="relative py-16 bg-gradient-to-br from-sky-50 to-gray-200">
+            <div class="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-40">
+              <div class="m-auto md:w-8/12 lg:w-6/12 xl:w-6/12">
+                <div class="rounded-xl bg-white shadow-xl">
+                  <div class="p-6 sm:p-16">
+                    <div class="space-y-4">
+                      <img
+                        src="https://tailus.io/sources/blocks/social/preview/images/icon.svg"
+                        // loading="lazy"
+                        class="w-10"
+                        alt="tailus logo"
+                      />
+                      <h2 class="mb-8 text-2xl text-cyan-900 font-bold">
+                        Sign in to unlock the <h1> best of EatSmart.</h1>
+                      </h2>
+                    </div>
+                    <div class="mt-16 grid space-y-4">
+                      <button
+                        class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                      >
+                        <div class="relative flex items-center space-x-4 justify-center">
+                          <img
+                            src="https://tailus.io/sources/blocks/social/preview/images/google.svg"
+                            class="absolute left-0 w-5"
+                            alt="google logo"
+                          />
+                          <Link href="/">
+                            <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
+                              Continue with Google
+                            </span>
+                          </Link>
+                        </div>
+                      </button>
+                      <button
+                        class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                      >
+                        <div class="relative flex items-center space-x-4 justify-center">
+                          <img
+                            src="https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/WhatsApp%20Image%202023-01-26%20at%2016.39.40.jpg?alt=media&token=f453f18e-0926-4720-8e5d-f3e37c45abac"
+                            class="absolute left-0 w-5"
+                            alt="Facebook logo"
+                          />
+                          <Link href="/login">
+                            <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
+                              Continue with Email and Password
+                            </span>
+                          </Link>
+                        </div>
+                      </button>
+
+                      <button
+                        class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+                                     hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                      >
+                        <div class="relative flex items-center space-x-4 justify-center">
+                          <img
+                            src="https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/WhatsApp%20Image%202023-01-26%20at%2016.51.22.jpg?alt=media&token=8af13b58-604e-4d70-a187-34bebcf36107"
+                            class="absolute left-0 w-5"
+                            alt="Facebook logo"
+                          />
+
+                          <Link href="/register">
+                            <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
+                              Sign Up for a new Account
+                            </span>
+                          </Link>
+                        </div>
+                      </button>
+
+                      <button
+                        class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+                                     hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                      >
+                        <div class="relative flex items-center space-x-4 justify-center">
+                          <img
+                            src="https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/WhatsApp%20Image%202023-01-26%20at%2016.34.35.jpg?alt=media&token=4bf5fb5f-5b1d-4f3b-8d9c-4ded7d77a5f9"
+                            class="absolute left-0 w-5"
+                            alt="Facebook logo"
+                          />
+
+                          <Link href="/foodCheck">
+                            <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
+                              Continue as Guest
+                            </span>
+                          </Link>
+                        </div>
+                      </button>
+                    </div>
+
+                    <div class="mt-16 space-y-4 text-gray-600 text-center sm:-mb-8">
+                      <p class="text-xs">
+                        By proceeding, you agree to our{" "}
+                        <a href="#" class="underline">
+                          Terms of Use
+                        </a>{" "}
+                        and confirm you have read our{" "}
+                        <a href="#" class="underline">
+                          Privacy and Cookie Statement
+                        </a>
+                        .
+                      </p>
+                      <p class="text-xs">
+                        This site is protected by reCAPTCHA and the{" "}
+                        <a href="#" class="underline">
+                          Google Privacy Policy
+                        </a>{" "}
+                        and{" "}
+                        <a href="#" class="underline">
+                          Terms of Service
+                        </a>{" "}
+                        apply.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </UserState>
     </>
-  )
+  );
 }
