@@ -1,22 +1,215 @@
 import UserContext from "@/components/context/userContext";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+import { storage } from "@/firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 export default function Bmi() {
+  const [gender, setGender] = useState();
+  const [fname, setFName] = useState();
+  const [lname, setLName] = useState();
+  const [height, setHeight] = useState(0);
+  const [weight, setWeight] = useState(0);
+
   const user = useContext(UserContext);
+  const [image, setImage] = useState("nil");
+  const [imgUrl, setImgUrl] = useState(
+    "https://st3.depositphotos.com/13159112/17145/v/450/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
+  );
+
+  const handleUpload = (img) => {
+    const storageRef = ref(storage, `${user}/pic.jpg`);
+    const file = img;
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        alert("uploaded");
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setImgUrl(downloadURL);
+        });
+      }
+    );
+  };
+
+  const [bmi, setBmi] = useState(
+    Number(weight) / ((Number(height) / 100) * (Number(height) / 100))
+  );
+  useEffect(() => {
+    console.log(bmi);
+  });
   return (
     <>
-      <div>name</div>
-      <div>height</div>
-      <div>weight</div>
-      <div>Bmi</div>
-      {/* <div>skip</div> */}
-      <Link href="/foodCheck">skip</Link>
-      <Link href="/foodCheck">submit</Link>
+      <Header />
+      <div
+        style={{
+          backgroundImage:
+            "url('https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/bg-01.jpg?alt=media&token=a08299a0-2250-4504-8329-d074bb381628')",
+          backgroundSize: "cover",
+        }}
+        class="min-h-screen w-full flex items-center justify-center bg-gray-50"
+      >
+        <div>
+          {/* <h1 class="mb-1 font-bold text-3xl flex gap-1 items-baseline font-mono">
+            USER DETAILS<span class="text-sm text-purple-700"></span>
+          </h1> */}
 
+          <div className="flex items-center justify-center max-w-fit mx-auto pb-10">
+            <img className="w-28 h-28 rounded-full object-cover" src={imgUrl} />
+          </div>
 
+          <div class="grid max-w-3xl gap-2 py-10 px-8 sm:grid-cols-2 bg-white rounded-md border-t-4 border-purple-400">
+            <section class="flex items-center justify-center ">
+              <input
+                onChange={(e) => {
+                  setImage(e.target.files[0]);
+                }}
+                id="company"
+                type="file"
+                placeholder="1111"
+              />
 
-      <p>you are logged in as --------  {user}</p>
+              <button
+                onClick={() => {
+                  handleUpload(image);
+                }}
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              >
+                Upload
+              </button>
+            </section>
+            <div class="grid">
+              <div class="bg-white flex min-h-[60px] flex-col-reverse justify-center rounded-md border border-gray-300  shadow-sm focus-within:shadow-inner">
+                <select
+                  onChange={(e) => {
+                    setGender(e.target.value);
+                  }}
+                  type="text"
+                  class="h-full peer block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-400 focus:ring-0"
+                  placeholder=" Gender"
+                >
+                  <option>Please Select</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
+                <label
+                  html="first-name"
+                  class="block transform text-xs font-bold uppercase text-gray-400 transition-opacity, duration-200 peer-placeholder-shown:h-0 peer-placeholder-shown:-translate-y-full peer-placeholder-shown:opacity-0"
+                >
+                  Gender
+                </label>
+              </div>
+            </div>
+
+            <div class="grid">
+              <div class="bg-white first:flex min-h-[60px] flex-col-reverse justify-center rounded-md border border-gray-300  shadow-sm focus-within:shadow-inner">
+                <input
+                  onChange={(e) => {
+                    setFName(e.target.value);
+                  }}
+                  type="text"
+                  name="last-name"
+                  id="last-name"
+                  class="h-full peer block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-400 focus:ring-0"
+                  placeholder=" First Name"
+                />
+                <label
+                  html="last-name"
+                  class="block transform text-xs font-bold uppercase text-gray-400 transition-opacity, duration-200 peer-placeholder-shown:h-0 peer-placeholder-shown:-translate-y-full peer-placeholder-shown:opacity-0"
+                >
+                  First name
+                </label>
+              </div>
+            </div>
+            <div class="grid">
+              <div class="bg-white first:flex min-h-[60px] flex-col-reverse justify-center rounded-md border border-gray-300  shadow-sm focus-within:shadow-inner">
+                <input
+                  onChange={(e) => {
+                    setLName(e.target.value);
+                  }}
+                  type="text"
+                  name="last-name"
+                  id="last-name"
+                  class="h-full peer block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-400 focus:ring-0"
+                  placeholder=" Last Name"
+                />
+                <label
+                  html="last-name"
+                  class="block transform text-xs font-bold uppercase text-gray-400 transition-opacity, duration-200 peer-placeholder-shown:h-0 peer-placeholder-shown:-translate-y-full peer-placeholder-shown:opacity-0"
+                >
+                  Last name
+                </label>
+              </div>
+            </div>
+            <div class="grid">
+              <div class="bg-white flex min-h-[60px] flex-col-reverse justify-center rounded-md border border-gray-300  shadow-sm focus-within:shadow-inner">
+                <input
+                  onChange={(e) => {
+                    setHeight(e.target.value);
+                  }}
+                  type="number"
+                  name="last-name"
+                  id="last-name"
+                  class="h-full peer block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-400 focus:ring-0"
+                  placeholder=" Height In Centimeter"
+                />
+                <label
+                  html="company"
+                  class="block transform text-xs font-bold uppercase text-gray-400 transition-opacity, duration-200 peer-placeholder-shown:h-0 peer-placeholder-shown:-translate-y-full peer-placeholder-shown:opacity-0"
+                >
+                  Height In Centimeter
+                </label>
+              </div>
+            </div>
+            <div class="grid">
+              <div class="bg-white flex min-h-[60px] flex-col-reverse justify-center rounded-md border border-gray-300  shadow-sm focus-within:shadow-inner">
+                <input
+                  onChange={(e) => {
+                    setWeight(e.target.value);
+                  }}
+                  type="number"
+                  name="email"
+                  id="email"
+                  class="h-full peer block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-400 focus:ring-0"
+                  placeholder=" Weight"
+                />
+                <label
+                  html="weight"
+                  class="block transform text-xs font-bold uppercase text-gray-400 transition-opacity, duration-200 peer-placeholder-shown:h-0 peer-placeholder-shown:-translate-y-full peer-placeholder-shown:opacity-0"
+                >
+                  Weight in KG
+                </label>
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="mt-4 bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-purple-600 "
+            >
+              Submit
+            </button>
+            <div
+              type="submit"
+              class="mt-4 bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-purple-600 "
+            >
+              BMI : {bmi}
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
     </>
   );
 }
