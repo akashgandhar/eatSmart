@@ -77,7 +77,7 @@ export default function MainHome() {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setUri(downloadURL);
-          // console.log(downloadURL);
+          console.log(downloadURL);
           alert("uploaded");
         });
       }
@@ -101,9 +101,9 @@ export default function MainHome() {
     console.log("handleCameraStop");
   }
 
-  // useEffect(() => {
-  //   console.log(uri);
-  // }, [uri]);
+  useEffect(() => {
+    console.log(uri);
+  }, [uri]);
 
   return (
     <>
