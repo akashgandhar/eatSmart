@@ -23,7 +23,7 @@ export default function MainHome() {
     new ApiKeyCredentials({
       inHeader: {
         "Ocp-Apim-Subscription-Key": key,
-        "Content-Type": "application/octal-stream",
+        "Content-Type": "application/json",
       },
     }),
     endpoint
