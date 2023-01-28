@@ -8,9 +8,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
-
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
 
 export default function Bmi() {
   const [gender, setGender] = useState();
@@ -31,6 +30,8 @@ export default function Bmi() {
   };
 
   const [disease, setDisease] = useState("Select Disease");
+
+  const [saveor, setSavour] = useState(0);
 
   const data = [
     "Asthma",
@@ -122,7 +123,19 @@ export default function Bmi() {
                   </div>
                 )}
                 <div className="m-4">
-                <RangeSlider min="0" max="5" step="1"  thumbsDisabled = {[true]} value ={[0,5]}/>
+                  <div class="slidecontainer w-full">
+                    <input
+                      type="range"
+                      min="0"
+                      max="5"
+                      value={saveor}
+                      class="slider w-full"
+                      id="myRange"
+                      onChange={(e) => {
+                        setSavour(e.target.value);
+                      }}
+                    />
+                  </div>
                   {/* <input 
                     type="range"
                     min="0"
