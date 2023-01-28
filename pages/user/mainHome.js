@@ -20,7 +20,12 @@ export default function MainHome() {
   const endpoint = "https://eat-smart.cognitiveservices.azure.com/";
 
   const computerVisionClient = new ComputerVisionClient(
-    new ApiKeyCredentials({ inHeader: { "Ocp-Apim-Subscription-Key": key } }),
+    new ApiKeyCredentials({
+      inHeader: {
+        "Ocp-Apim-Subscription-Key": key,
+        "Content-Type": "application/octal-stream",
+      },
+    }),
     endpoint
   );
 
@@ -62,26 +67,28 @@ export default function MainHome() {
     const storageRef = ref(storage, `${user}/pic2.jpg`);
     const file = dataUri;
     const uploadTask = uploadBytesResumable(storageRef, file);
-    try{uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      },
+    try {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Observe state change events such as progress, pause, and resume
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        },
 
-      (error) => {
-        // Handle unsuccessful uploads
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setUri(downloadURL);
-          console.log(downloadURL);
-          alert("uploaded");
-        });
-      }
-    );}catch{}
+        (error) => {
+          // Handle unsuccessful uploads
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setUri(downloadURL);
+            console.log(downloadURL);
+            alert("uploaded");
+          });
+        }
+      );
+    } catch {}
   }
 
   function handleTakePhotoAnimationDone(dataUri) {
@@ -185,9 +192,10 @@ export default function MainHome() {
         >
           Click me
         </button>
-
       </div>
-        {list.map((e,index)=>{<span key={index}>{e}</span>})}
+      {list.map((e, index) => {
+        <span key={index}>{e}</span>;
+      })}
     </>
   );
 }
