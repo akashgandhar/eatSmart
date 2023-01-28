@@ -3,6 +3,8 @@ import UserContext from "./userContext";
 import { useRouter } from "next/router";
 import { auth } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import Footer from "../footer";
+import Header from "../header";
 
 const UserState = (props) => {
   const [user, setUser] = useState("null");
@@ -23,7 +25,7 @@ const UserState = (props) => {
   const data = user;
 
   return (
-    <UserContext.Provider value={data}>{props.children}</UserContext.Provider>
+    <UserContext.Provider value={data}><Header />{props.children}<Footer/></UserContext.Provider>
   );
 };
 

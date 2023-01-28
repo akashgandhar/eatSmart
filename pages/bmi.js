@@ -1,9 +1,11 @@
 import UserContext from "@/components/context/userContext";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import { storage } from "@/firebase";
+import { db, storage } from "@/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 
 export default function Bmi() {
@@ -12,6 +14,27 @@ export default function Bmi() {
   const [lname, setLName] = useState();
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
+
+  const [bmi, setBmi] = useState();
+
+  const GetBmi = async () => {
+    const docRef = doc(db, `users`, user);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists) {
+      setBmi(docSnap.data().BMI);
+    }
+  };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    GetBmi().then(() => {
+      if (bmi) {
+        router.push("/user/mainHome");
+      }
+    });
+  }, [bmi]);
 
   const user = useContext(UserContext);
   const [image, setImage] = useState("nil");
@@ -44,19 +67,36 @@ export default function Bmi() {
     );
   };
 
-  const [bmi, setBmi] = useState(
-    Number(weight) / ((Number(height) / 100) * (Number(height) / 100))
-  );
-  useEffect(() => {
-    console.log(bmi);
-  });
+  const UpdateProfile = async () => {
+    if (!fname || !lname || !gender || !height || !weight) {
+      alert("Enter Missing Details");
+    } else {
+      try {
+        const docRef = `users`;
+        await updateDoc(doc(db, docRef, user), {
+          First_Name: fname,
+          Last_Name: lname,
+          Gender: gender,
+          Height: height,
+          Weight: weight,
+          Name: fname + " " + lname,
+          BMI:
+            Number(weight) / ((Number(height) / 100) * (Number(height) / 100)),
+        }).then(() => {
+          router.push("/user/diseaseSelect");
+        });
+      } catch (e) {
+        console.error("Error adding Data: ", e.message);
+      }
+    }
+  };
+
   return (
     <>
-      <Header />
       <div
         style={{
           backgroundImage:
-            "url('https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/bg-01.jpg?alt=media&token=a08299a0-2250-4504-8329-d074bb381628')",
+            "url('https://images.unsplash.com/photo-1623150502742-6a849aa94be4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')",
           backgroundSize: "cover",
         }}
         class="min-h-screen w-full flex items-center justify-center bg-gray-50"
@@ -195,6 +235,7 @@ export default function Bmi() {
               </div>
             </div>
             <button
+              onClick={UpdateProfile}
               type="submit"
               class="mt-4 bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-purple-600 "
             >
@@ -202,14 +243,31 @@ export default function Bmi() {
             </button>
             <div
               type="submit"
-              class="mt-4 bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-purple-600 "
+              class={`mt-4 ${
+                !(
+                  Number(weight) /
+                  ((Number(height) / 100) * (Number(height) / 100))
+                )
+                  ? "bg-orange-400"
+                  : "bg-green-500"
+              } ${
+                Number(weight) /
+                  ((Number(height) / 100) * (Number(height) / 100)) <
+                  18.5 ||
+                Number(weight) /
+                  ((Number(height) / 100) * (Number(height) / 100)) >
+                  24.99
+                  ? "bg-red-500"
+                  : "bg-green-500"
+              } text-white  py-2 px-6 rounded-md `}
             >
-              BMI : {bmi}
+              BMI :{" "}
+              {Number(weight) /
+                ((Number(height) / 100) * (Number(height) / 100))}
             </div>
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
