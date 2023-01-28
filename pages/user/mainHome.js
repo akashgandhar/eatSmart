@@ -1,7 +1,9 @@
 import UserContext from "@/components/context/userContext";
+import { storage } from "@/firebase";
 import { ComputerVisionClient } from "@azure/cognitiveservices-computervision";
 import { ApiKeyCredentials } from "@azure/ms-rest-js";
 import axios from "axios";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import React, { useContext, useState } from "react";
 import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
@@ -31,7 +33,7 @@ export default function MainHome() {
       })
     ).tags;
 
-    console.log(`Tags: ${formatTags(tags)}`);
+    alert(`Tags: ${formatTags(tags)}`);
 
     function formatTags(tags) {
       return tags
@@ -51,9 +53,33 @@ export default function MainHome() {
 
   function handleTakePhoto(dataUri) {
     // Do stuff with the photo...
-    console.log("2");
-    setUri(dataUri);
+    // console.log("2");
+    // setUri(dataUri);
+    // console.log(dataUri);
     setOpen(false);
+
+    const storageRef = ref(storage, `${user}/pic2.jpg`);
+    const file = dataUri;
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setUri(downloadURL);
+          alert("uploaded");
+        });
+      }
+    );
   }
 
   function handleTakePhotoAnimationDone(dataUri) {
@@ -73,6 +99,10 @@ export default function MainHome() {
     console.log("handleCameraStop");
   }
 
+  useState(() => {
+    console.log(uri);
+  }, [uri]);
+
   return (
     <>
       <div className=" w-full">
@@ -88,7 +118,7 @@ export default function MainHome() {
               handleCameraError(error);
             }}
             // idealFacingMode={FACING_MODES.ENVIRONMENT}
-            idealResolution={{ width: 640, height: 480 }}
+            // idealResolution={{ width: 640, height: 480 }}
             // imageType={IMAGE_TYPES.JPG}
             imageCompression={0.97}
             isMaxResolution={true}
