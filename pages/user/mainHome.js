@@ -100,9 +100,10 @@ export default function MainHome() {
     console.log("handleCameraStop");
   }
 
-  useState(() => {
-    console.log(uri);
-  }, [uri]);
+  useEffect(() => {
+   
+  }, [])
+  
 
   return (
     <>
