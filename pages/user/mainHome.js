@@ -3,7 +3,12 @@ import { storage } from "@/firebase";
 import { ComputerVisionClient } from "@azure/cognitiveservices-computervision";
 import { ApiKeyCredentials } from "@azure/ms-rest-js";
 import axios from "axios";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
 import React, { useContext, useEffect, useState } from "react";
 import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
@@ -22,7 +27,7 @@ export default function MainHome() {
   const computerVisionClient = new ComputerVisionClient(
     new ApiKeyCredentials({
       inHeader: {
-        "Ocp-Apim-Subscription-Key": key
+        "Ocp-Apim-Subscription-Key": key,
       },
     }),
     endpoint
@@ -34,7 +39,7 @@ export default function MainHome() {
 
     const tags = (
       await computerVisionClient.analyzeImage(uri, {
-        visualFeatures: ["Tags"]
+        visualFeatures: ["Tags"],
       })
     ).tags;
 
@@ -42,7 +47,7 @@ export default function MainHome() {
 
     function formatTags(tags) {
       return tags
-        .map((tag) => (`${tag.name} (${tag.confidence.toFixed(2)})`))
+        .map((tag) => `${tag.name} (${tag.confidence.toFixed(2)})`)
         .join(", ");
     }
 
@@ -63,30 +68,17 @@ export default function MainHome() {
     // console.log(dataUri);
     setOpen(false);
 
-    const storageRef = ref(storage, `${user}/pic2.png`);
-    const file = dataUri;
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    try {
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          // Observe state change events such as progress, pause, and resume
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        },
+    const storageRef = ref(storage, `${user}/pic2.jpg`);
 
-        (error) => {
-          // Handle unsuccessful uploads
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setUri(downloadURL);
-            console.log(downloadURL);
-            alert("uploaded");
-          });
-        }
-      );
+    try {
+      uploadBytes(storageRef, file).then((snapshot) => {
+        console.log("Uploaded a blob or file!");
+        getDownloadURL(snapshot.ref).then((downloadURL) => {
+          setUri(downloadURL);
+          console.log(downloadURL);
+          alert("uploaded");
+        });
+      });
     } catch {}
   }
 
