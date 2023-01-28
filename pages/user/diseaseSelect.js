@@ -2,7 +2,14 @@ import UserContext from "@/components/context/userContext";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { db, storage } from "@/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,46 +25,88 @@ export default function Bmi() {
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
 
+  const u = useContext(UserContext);
+
   const [bmi, setBmi] = useState();
-
-  const GetBmi = async () => {
-    const docRef = doc(db, `users`, user);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists) {
-      setBmi(docSnap.data().BMI);
-    }
-  };
 
   const [disease, setDisease] = useState("Select Disease");
 
-  const [saveor, setSavour] = useState(0);
+  const [saveor, setSavour] = useState(1);
+
+  const [size, setSize] = useState(0);
 
   const data = [
     "Asthma",
+    "Osteoporosis",
+    "Meniere's disease",
     "Diabetes",
-    "Kidney Stones",
-    "Cancer",
-    "Fatty-Liver",
-    "Asthma",
-    "Diabetes",
-    "Kidney Stones",
-    "Cancer",
-    "Fatty-Liver",
+    "Stomach cancer",
+    "Attacks to the brain",
+    "hypertension",
+    "Heart failure",
+    "Kidney stones",
+    "Weight gain",
+    "chronic inflammation",
+    "fatty-Liver",
+    "heart attack",
+    "Acne",
+    "cancer",
+    "Dipression",
+    "Increase Skin Aging",
+    "Cellular Aging",
+    "Cavities",
+    "Gout",
+    "Tooth decay",
+    "Noninsulin-Dependent Diabetes",
+    "High Cholesterol",
+    "High Serum Insulin",
+    "Fatigue",
+    "Gall Bladder Stone",
+    "Breast Cancer",
+    "Corornary Heart Disease",
+    "Type-2 Diabetes",
+    "Insomnia",
   ];
+
+  const GetDSize = async () => {
+    try {
+      const docRef = collection(db, `users/${u}/diseases`);
+      const docSnap = await getDocs(docRef);
+      setSize(docSnap.size);
+    } catch {}
+  };
+
+  const sendDisease = async () => {
+    if (!disease || !saveor) {
+      alert("Enter Missing Details");
+    } else {
+      try {
+        const docRef = `users/${u}/diseases`;
+        await setDoc(doc(db, docRef, disease), {
+          Name: disease,
+          Saverity: saveor,
+        }).then(() => {
+          alert("success");
+          router.push("/user/mainHome");
+        });
+      } catch (e) {
+        console.error("Error adding Data: ", e.message);
+      }
+    }
+  };
 
   const router = useRouter();
 
-  // useEffect(() => {
-  //   GetBmi().then(() => {
-  //     if (bmi) {
-  //       router.push("/user/mainHome");
-  //     }
-  //   });
-  // }, [bmi]);
+  useEffect(() => {
+    // console.log(u);
+    GetDSize().then(() => {
+      if (size > 0) {
+        router.push("/user/mainHome");
+      }
+    });
+  }, [size]);
 
   const [pick, setPick] = useState(false);
-  const [picks, setPickS] = useState(false);
 
   return (
     <>
@@ -100,7 +149,7 @@ export default function Bmi() {
                 </div>
                 {pick && (
                   <div className="p-4 w-full rounded-2xl ">
-                    <div className="bg-gradient-to-br from-sky-50 to-blue-500 justify-center rounded-xl p-2 ">
+                    <div className=" justify-center rounded-xl p-2">
                       <ScrollMenu>
                         {data.map((e, index) => {
                           return (
@@ -111,7 +160,7 @@ export default function Bmi() {
                                   setPick(false);
                                 }}
                                 key={index}
-                                className=" m-1 flex items-center justify-center hover:cursor-pointer h-24 w-40 hover:scale-105  bg-gradient-to-r  to-red-600 font-bold text-2xl rounded-xl"
+                                className=" m-1 flex items-center justify-center hover:cursor-pointer h-24 w-40 hover:scale-105  bg-gradient-to-br from-sky-100  to-sky-300 font-bold text-2xl rounded-xl"
                               >
                                 {e}
                               </div>
@@ -122,52 +171,39 @@ export default function Bmi() {
                     </div>
                   </div>
                 )}
-                <div className="m-4">
-                  <div class="slidecontainer w-full">
+                <div className="m-4 ">
+                  <div className="flex w-full text-xl justify-center font-bold mb-4">
+                    Disease Severity
+                  </div>
+                  <div class="slidecontainer w-full ">
                     <input
                       type="range"
-                      min="0"
+                      min="1"
                       max="5"
                       value={saveor}
-                      class="slider w-full"
+                      class={`slider w-full  `}
                       id="myRange"
                       onChange={(e) => {
                         setSavour(e.target.value);
                       }}
                     />
-                  </div>
-                  {/* <input 
-                    type="range"
-                    min="0"
-                    max="5"
-                    value="3"
-                    className="range range-secondary w-full slider"
-                  /> */}
-                </div>
+                    <div className="flex w-full ">
+                      <div className="w-1/4">1</div>
+                      <div className="w-1/4">2</div>
+                      <div className="w-1/4">3</div>
+                      <div>4</div>
+                      <div className="w-1/4 text-right">5</div>
+                    </div>
 
-                <div class="mt-16 space-y-4 text-gray-600 text-center sm:-mb-8">
-                  <p class="text-xs">
-                    By proceeding, you agree to our{" "}
-                    <a href="#" class="underline">
-                      Terms of Use
-                    </a>{" "}
-                    and confirm you have read our{" "}
-                    <a href="#" class="underline">
-                      Privacy and Cookie Statement
-                    </a>
-                    .
-                  </p>
-                  <p class="text-xs">
-                    This site is protected by reCAPTCHA and the{" "}
-                    <a href="#" class="underline">
-                      Google Privacy Policy
-                    </a>{" "}
-                    and{" "}
-                    <a href="#" class="underline">
-                      Terms of Service
-                    </a>{" "}
-                    apply.
-                  </p>
+                    <div className="flex w-full h-auto justify-center mt-5">
+                      <button
+                        onClick={sendDisease}
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

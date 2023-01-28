@@ -186,10 +186,7 @@ export default function Footer() {
 
         <div class="mb-6">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-            distinctio earum repellat quaerat voluptatibus placeat nam, commodi
-            optio pariatur est quia magnam eum harum corrupti dicta, aliquam
-            sequi voluptate quas.
+            This application is designed for every individual who want to control their consup
           </p>
         </div>
       </div>

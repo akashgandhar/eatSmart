@@ -18,20 +18,23 @@ export default function Bmi() {
   const [bmi, setBmi] = useState();
 
   const GetBmi = async () => {
-    const docRef = doc(db, `users`, user);
-    const docSnap = await getDoc(docRef);
+    try{
 
-    if (docSnap.exists) {
-      setBmi(docSnap.data().BMI);
-    }
-  };
+      const docRef = doc(db, `users`, user);
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists) {
+        setBmi(docSnap.data().BMI);
+      }
+    }catch{}
+  }
 
   const router = useRouter();
 
   useEffect(() => {
     GetBmi().then(() => {
       if (bmi) {
-        router.push("/user/mainHome");
+        router.push("/user/diseaseSelect");
       }
     });
   }, [bmi]);
@@ -262,8 +265,8 @@ export default function Bmi() {
               } text-white  py-2 px-6 rounded-md `}
             >
               BMI :{" "}
-              {Number(weight) /
-                ((Number(height) / 100) * (Number(height) / 100))}
+              {Math.round(Number(weight) /
+                ((Number(height) / 100) * (Number(height) / 100)))}
             </div>
           </div>
         </div>

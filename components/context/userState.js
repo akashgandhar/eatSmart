@@ -10,22 +10,25 @@ const UserState = (props) => {
   const [user, setUser] = useState("null");
   const router = useRouter();
 
-    useEffect(() => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setUser(user.displayName);
-        } else {
-          console.log("logged out ");
-          router.push("/");
-        }
-      });
-
-    }, [auth]);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user.displayName);
+      } else {
+        console.log("logged out ");
+        router.push("/");
+      }
+    });
+  }, [auth]);
 
   const data = user;
 
   return (
-    <UserContext.Provider value={data}><Header />{props.children}<Footer/></UserContext.Provider>
+    <UserContext.Provider value={data}>
+      <Header />
+      {props.children}
+      <Footer />
+    </UserContext.Provider>
   );
 };
 
