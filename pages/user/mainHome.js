@@ -75,7 +75,7 @@ export default function MainHome() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          // setUri(downloadURL);
+          setUri(downloadURL);
           console.log(downloadURL);
           alert("uploaded");
         });
@@ -101,8 +101,8 @@ export default function MainHome() {
   }
 
   useEffect(() => {
-   
-  }, [])
+   console.log(uri);
+  }, [uri])
   
 
   return (
