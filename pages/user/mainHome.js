@@ -4,7 +4,7 @@ import { ComputerVisionClient } from "@azure/cognitiveservices-computervision";
 import { ApiKeyCredentials } from "@azure/ms-rest-js";
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 
