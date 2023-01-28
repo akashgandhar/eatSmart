@@ -62,7 +62,7 @@ export default function MainHome() {
     const storageRef = ref(storage, `${user}/pic2.jpg`);
     const file = dataUri;
     const uploadTask = uploadBytesResumable(storageRef, file);
-    uploadTask.on(
+    try{uploadTask.on(
       "state_changed",
       (snapshot) => {
         // Observe state change events such as progress, pause, and resume
@@ -81,7 +81,7 @@ export default function MainHome() {
           alert("uploaded");
         });
       }
-    );
+    );}catch{}
   }
 
   function handleTakePhotoAnimationDone(dataUri) {
