@@ -11,6 +11,7 @@ import "react-html5-camera-photo/build/css/index.css";
 export default function MainHome() {
   const user = useContext(UserContext);
   const [open, setOpen] = useState(false);
+  const [list, setList] = useState([]);
 
   const [uri, setUri] = useState();
   const [data, setData] = useState();
@@ -37,7 +38,7 @@ export default function MainHome() {
 
     function formatTags(tags) {
       return tags
-        .map((tag) => `${tag.name} (${tag.confidence.toFixed(2)})`)
+        .map((tag) => list.push(`${tag.name} (${tag.confidence.toFixed(2)})`))
         .join(", ");
     }
 
@@ -184,7 +185,9 @@ export default function MainHome() {
         >
           Click me
         </button>
+
       </div>
+        {list.map((e,index)=>{<span key={index}>{e}</span>})}
     </>
   );
 }
