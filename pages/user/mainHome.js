@@ -22,8 +22,7 @@ export default function MainHome() {
   const computerVisionClient = new ComputerVisionClient(
     new ApiKeyCredentials({
       inHeader: {
-        "Ocp-Apim-Subscription-Key": key,
-        "Content-Type": "application/json",
+        "Ocp-Apim-Subscription-Key": key
       },
     }),
     endpoint
@@ -35,7 +34,7 @@ export default function MainHome() {
 
     const tags = (
       await computerVisionClient.analyzeImage(uri, {
-        visualFeatures: ["Tags"],
+        visualFeatures: ["Tags"]
       })
     ).tags;
 
@@ -43,7 +42,7 @@ export default function MainHome() {
 
     function formatTags(tags) {
       return tags
-        .map((tag) => list.push(`${tag.name} (${tag.confidence.toFixed(2)})`))
+        .map((tag) => (`${tag.name} (${tag.confidence.toFixed(2)})`))
         .join(", ");
     }
 
@@ -64,7 +63,7 @@ export default function MainHome() {
     // console.log(dataUri);
     setOpen(false);
 
-    const storageRef = ref(storage, `${user}/pic2.jpg`);
+    const storageRef = ref(storage, `${user}/pic2.png`);
     const file = dataUri;
     const uploadTask = uploadBytesResumable(storageRef, file);
     try {
