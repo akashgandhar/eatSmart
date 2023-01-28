@@ -28,7 +28,7 @@ export default function MainHome() {
       "https://images.everydayhealth.com/images/diet-nutrition/all-about-bananas-nutrition-facts-health-benefits-recipes-and-more-rm-722x406.jpg";
 
     const tags = (
-      await computerVisionClient.analyzeImage(tagsURL, {
+      await computerVisionClient.analyzeImage(uri, {
         visualFeatures: ["Tags"],
       })
     ).tags;
@@ -76,7 +76,7 @@ export default function MainHome() {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setUri(downloadURL);
-          console.log(downloadURL);
+          // console.log(downloadURL);
           alert("uploaded");
         });
       }
@@ -100,10 +100,9 @@ export default function MainHome() {
     console.log("handleCameraStop");
   }
 
-  useEffect(() => {
-   console.log(uri);
-  }, [uri])
-  
+  // useEffect(() => {
+  //   console.log(uri);
+  // }, [uri]);
 
   return (
     <>
