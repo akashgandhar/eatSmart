@@ -54,12 +54,7 @@ export default function Display() {
             <span class="italic">Trans Fat</span> 8g
           </div>
           <hr class="border-gray-500" />
-          <div class="flex justify-between">
-            <div>
-              <span class="font-bold">Cholesterol</span> 0mg
-            </div>
-            <div class="font-bold">0%</div>
-          </div>
+         
           <hr class="border-gray-500" />
           <div class="flex justify-between">
             <div>
