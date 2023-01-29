@@ -26,10 +26,9 @@ export default function Display() {
 
       <div class="p-1 border-2 border-black font-sans w-full">
         <div class="text-4xl font-extrabold leading-none">Nutrition Facts</div>
-        <div class="leading-snug">8 servings per container</div>
+       
         <div class="flex justify-between font-bold border-b-8 border-black">
           <div>Serving size</div>
-          <div>2/3 cup (55g)</div>
         </div>
         <div class="flex justify-between items-end font-extrabold">
           <div>
