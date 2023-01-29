@@ -24,24 +24,23 @@ export default function Display() {
       </div>
       {/* Nutrition label */}
 
-      <div class="flex p-1 border-2 border-black font-sans w-1/3 item-center">
+      <div class=" p-1 border-2 border-black font-sans w-1/3 ">
         <div class="text-4xl font-extrabold leading-none">Nutrition Facts</div>
-       
-        <div class="flex justify-between font-bold border-b-8 border-black">
-        </div>
+
+        <div class="flex justify-between font-bold border-b-8 border-black"></div>
         <div class="flex justify-between items-end font-extrabold">
           <div>
             <div class="font-bold">Amount per serving</div>
             <div class="text-4xl">Calories</div>
           </div>
-          <div class="text-5xl">45</div>
+          <div class="text-5xl">00</div>
         </div>
         <div class="border-t-4 border-black text-sm pb-1">
           <div class="text-right font-bold pt-1 pb-1">% Daily value*</div>
           <hr class="border-gray-500" />
           <div class="flex justify-between">
             <div>
-              <span class="font-bold">Total Fat</span> 8g
+              <span class="font-bold">Fat</span> 8g
             </div>
             <div class="font-bold">10%</div>
           </div>
@@ -71,7 +70,7 @@ export default function Display() {
           <hr class="border-gray-500" />
           <div class="flex justify-between">
             <div>
-              <span class="font-bold">Total Carbohydrate</span> 37g
+              <span class="font-bold">Carbohydrate</span> 37g
             </div>
             <div class="font-bold">13%</div>
           </div>
@@ -82,7 +81,7 @@ export default function Display() {
           </div>
           <hr class="border-gray-500" />
           <div class="pl-4">
-            Total Sugar 12g
+            Sugar 12g
             <div class="pl-4">
               <hr class="border-gray-500" />
               <div class="flex justify-between">
@@ -97,33 +96,6 @@ export default function Display() {
           </div>
         </div>
         <div class="border-t-8 border-black pt-1 text-sm">
-          <div class="flex justify-between">
-            <div>Vitamin D 2mcg</div>
-            <div>10%</div>
-          </div>
-          <hr class="border-gray-500" />
-          <div class="flex justify-between">
-            <div>Calcium 260mg</div>
-            <div>20%</div>
-          </div>
-          <hr class="border-gray-500" />
-          <div class="flex justify-between">
-            <div>Iron 8mg</div>
-            <div>45%</div>
-          </div>
-          <hr class="border-gray-500" />
-          <div class="flex justify-between">
-            <div>Potassium 240mg</div>
-            <div>6%</div>
-          </div>
-          <div class="border-t-4 border-black flex leading-none text-xs pt-2 pb-1">
-            <div class="pr-1">*</div>
-            <div>
-              The % Daily Value (DV) tells you how much a nutrient in a serving
-              of food contributes to a daily diet. 2,000 calories a day is used
-              for general nutrition advice.
-            </div>
-          </div>
         </div>
       </div>
 
