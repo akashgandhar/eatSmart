@@ -24,11 +24,10 @@ export default function Display() {
       </div>
       {/* Nutrition label */}
 
-      <div class="p-1 border-2 border-black font-sans w-full">
+      <div class="flex p-1 border-2 border-black font-sans w-1/3 item-center">
         <div class="text-4xl font-extrabold leading-none">Nutrition Facts</div>
        
         <div class="flex justify-between font-bold border-b-8 border-black">
-          <div>Standed has been taken as 100g/l</div>
         </div>
         <div class="flex justify-between items-end font-extrabold">
           <div>

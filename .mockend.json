@@ -8,7 +8,7 @@
       "string": ["kurkure", "parle-g", "choco"]
     },
     "carb": {
-      "int": [5, 9, 88]
+      "string": ["5", "9", "88"]
     }
   }
 }
