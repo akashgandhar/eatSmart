@@ -1,11 +1,10 @@
 {
   "Post": {
     "_": {
-      "items": 10
-    },
-
-    "disease": {
-      "name": "jkghgfkgj"
+      "items": 10,
+      "disease": {
+        "name": "jkghgfkgj"
+      }
     }
   }
 }
