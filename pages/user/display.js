@@ -22,77 +22,7 @@ export default function Display() {
           </div>
         </div>
       </div>
-      {/* Nutrition label */}
-
-      <div class=" p-1 border-2 border-black font-sans w-1/3 ">
-        <div class="text-4xl font-extrabold leading-none">Nutrition Facts</div>
-
-        <div class="flex justify-between font-bold border-b-8 border-black"></div>
-        <div class="flex justify-between items-end font-extrabold">
-          <div>
-            <div class="font-bold">Amount per serving</div>
-            <div class="text-4xl">Calories</div>
-          </div>
-          <div class="text-5xl">00</div>
-        </div>
-        <div class="border-t-4 border-black text-sm pb-1">
-          <div class="text-right font-bold pt-1 pb-1">% Daily value*</div>
-          <hr class="border-gray-500" />
-          <div class="flex justify-between">
-            <div>
-              <span class="font-bold">Fat</span> 8g
-            </div>
-            <div class="font-bold">10%</div>
-          </div>
-          <hr class="border-gray-500" />
-          <div class="flex justify-between">
-            <div>Saturated Fat 1g</div>
-            <div class="font-bold">5%</div>
-          </div>
-          <hr class="border-gray-500" />
-          <div>
-            <span class="italic">Trans Fat</span> 8g
-          </div>
-          <hr class="border-gray-500" />
-         
-          <hr class="border-gray-500" />
-          <div class="flex justify-between">
-            <div>
-              <span class="font-bold">Sodium</span> 160mg
-            </div>
-            <div class="font-bold">7%</div>
-          </div>
-          <hr class="border-gray-500" />
-          <div class="flex justify-between">
-            <div>
-              <span class="font-bold">Carbohydrate</span> 37g
-            </div>
-            <div class="font-bold">13%</div>
-          </div>
-          <hr class="border-gray-500" />
-          <div class="flex justify-between">
-            <div class="pl-4">Dietary Fiber 4g</div>
-            <div class="font-bold">14%</div>
-          </div>
-          <hr class="border-gray-500" />
-          <div class="pl-4">
-            Sugar 12g
-            <div class="pl-4">
-              <hr class="border-gray-500" />
-              <div class="flex justify-between">
-                <div>Includes 10g Added Sugars</div>
-                <div class="font-bold">20%</div>
-              </div>
-            </div>
-          </div>
-          <hr class="border-gray-500" />
-          <div>
-            <span class="font-bold">Protein</span> 3g
-          </div>
-        </div>
-        <div class="border-t-8 border-black pt-1 text-sm">
-        </div>
-      </div>
+      
 
       {/* card part */}
       {/* <!-- component --> */}

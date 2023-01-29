@@ -4,10 +4,5 @@
 
 
 export default function handler(req, res) {
-  res.status(200).json({
-    data: {
-      id: 1,
-      name: "jhgf",
-    },
-  })
+  res.status(200).json({ name: 'John Doe' })
 }
