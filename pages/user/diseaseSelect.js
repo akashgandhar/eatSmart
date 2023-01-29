@@ -27,46 +27,31 @@ export default function Bmi() {
 
   const u = useContext(UserContext);
 
-  const [bmi, setBmi] = useState();
-
   const [disease, setDisease] = useState("Select Disease");
 
   const [saveor, setSavour] = useState(1);
 
   const [size, setSize] = useState(0);
 
-  const data = [
-    "Asthma",
-    "Osteoporosis",
-    "Meniere's disease",
-    "Diabetes",
-    "Stomach cancer",
-    "Attacks to the brain",
-    "hypertension",
-    "Heart failure",
-    "Kidney stones",
-    "Weight gain",
-    "chronic inflammation",
-    "fatty-Liver",
-    "heart attack",
-    "Acne",
-    "cancer",
-    "Dipression",
-    "Increase Skin Aging",
-    "Cellular Aging",
-    "Cavities",
-    "Gout",
-    "Tooth decay",
-    "Noninsulin-Dependent Diabetes",
-    "High Cholesterol",
-    "High Serum Insulin",
-    "Fatigue",
-    "Gall Bladder Stone",
-    "Breast Cancer",
-    "Corornary Heart Disease",
-    "Type-2 Diabetes",
-    "Insomnia",
-  ];
+  const [data, setData] = useState([]);
+
+  const [dNuetrient, setDNuetrient] = useState([]);
+
+  const GetdNuetrients = async () => {
+    if (!disease) {
+      alert("select disease");
+    } else {
+      try {
+        const docRef = doc(db, `Disease_Data`, disease);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists) {
+          setDNuetrient(docSnap.data());
+        }
+      } catch (e) {
+        alert(e.message);
+      }
+    }
+  };
 
   const GetDSize = async () => {
     try {
@@ -79,6 +64,20 @@ export default function Bmi() {
     } catch {}
   };
 
+  const GetDList = async () => {
+    try {
+      const docRef = collection(db, `Disease_Data`);
+      const docSnap = await getDocs(docRef);
+      var list = [];
+      docSnap.forEach((doc) => {
+        list.push(doc.data().Disease_Name);
+      });
+      setData(list);
+    } catch {}
+  };
+
+  const factor = [1.8, 1.4, 1, 0.6, 0.2];
+
   const sendDisease = async () => {
     if (!disease || !saveor) {
       alert("Enter Missing Details");
@@ -88,6 +87,14 @@ export default function Bmi() {
         await setDoc(doc(db, docRef, disease), {
           Name: disease,
           Saverity: saveor,
+          Carbohydrate: dNuetrient.Carbohydrate * factor[saveor - 1],
+          Energy: dNuetrient.Energy * factor[saveor - 1],
+          Proteins: dNuetrient.Proteins * factor[saveor - 1],
+          Saturated_Fat: dNuetrient.Saturated_Fat * factor[saveor - 1],
+          Sodium: dNuetrient.Sodium * factor[saveor - 1],
+          Sugar: dNuetrient.Sugar * factor[saveor - 1],
+          Total_Fat: dNuetrient.Total_Fat * factor[saveor - 1],
+          Trans_Fat: dNuetrient.Trans_Fat * factor[saveor - 1],
         }).then(() => {
           alert("success");
           router.push("/user/mainHome");
@@ -103,12 +110,17 @@ export default function Bmi() {
   useEffect(() => {
     // console.log(u);
 
-    if (size > 0) {
-      router.replace("/user/mainHome");
-    } else {
-      GetDSize();
-    }
-  }, [size]);
+    GetdNuetrients();
+    console.log(dNuetrient);
+
+    GetDList();
+
+    // if (size > 0) {
+    //   router.replace("/user/mainHome");
+    // } else {
+    //   GetDSize();
+    // }
+  }, [size, disease]);
 
   const [pick, setPick] = useState(false);
 
