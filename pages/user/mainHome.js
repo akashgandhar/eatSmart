@@ -8,9 +8,10 @@ import {
   ref,
   uploadBytes,
   uploadBytesResumable,
+  uploadString,
 } from "firebase/storage";
 import React, { useContext, useEffect, useState } from "react";
-import Camera from "react-html5-camera-photo";
+import Camera, { FACING_MODES, IMAGE_TYPES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 
 export default function MainHome() {
@@ -54,36 +55,34 @@ export default function MainHome() {
     // Optionally the request above could also be done as
   };
 
-  // function handleTakePhoto(dataUri) {
-  //   // Do stuff with the photo...
-
-  //   console.log("1");
-
-  // }
-
   function handleTakePhoto(dataUri) {
-    // Do stuff with the photo...
-    // console.log("2");
-    // setUri(dataUri);
     // console.log(dataUri);
     setOpen(false);
-
-    const storageRef = ref(storage, `${user}/pic2.jpg`);
-
-    try {
-      uploadBytes(storageRef, file).then((snapshot) => {
-        console.log("Uploaded a blob or file!");
-        getDownloadURL(snapshot.ref).then((downloadURL) => {
-          setUri(downloadURL);
-          console.log(downloadURL);
-          alert("uploaded");
-        });
-      });
-    } catch {}
   }
 
   function handleTakePhotoAnimationDone(dataUri) {
     // Do stuff with the photo...
+
+    const storageRef = ref(storage, "images/test.jpg");
+
+    const metadata = {
+      contentType: "image/jpeg",
+    };
+
+    // const uploadTask = uploadBytes(storageRef, file, metadata);
+
+    uploadString(storageRef, dataUri, "data_url", metadata)
+      .then((snapshot) => {
+        console.log("Uploaded a data_url string!");
+      })
+      .then(() => {
+        getDownloadURL(storageRef).then((url) => {
+          // console.log(url);
+          setUri(url);
+        });
+        alert("uploaded");
+      });
+
     console.log("3");
   }
 
@@ -117,9 +116,9 @@ export default function MainHome() {
             onCameraError={(error) => {
               handleCameraError(error);
             }}
-            // idealFacingMode={FACING_MODES.ENVIRONMENT}
-            // idealResolution={{ width: 640, height: 480 }}
-            // imageType={IMAGE_TYPES.JPG}
+            idealFacingMode={FACING_MODES.ENVIRONMENT}
+            idealResolution={{ width: 640, height: 480 }}
+            imageType={IMAGE_TYPES.JPG}
             imageCompression={0.97}
             isMaxResolution={true}
             isImageMirror={false}
@@ -174,7 +173,11 @@ export default function MainHome() {
       <div class="flex space-x-2 justify-center">
         <button
           onClick={() => {
-            checkPic();
+            if (!uri) {
+              alert("click a picture first");
+            } else {
+              checkPic();
+            }
           }}
           type="button"
           data-mdb-ripple="true"

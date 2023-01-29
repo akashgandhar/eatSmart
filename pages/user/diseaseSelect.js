@@ -72,7 +72,9 @@ export default function Bmi() {
     try {
       const docRef = collection(db, `users/${u}/diseases`);
       const docSnap = await getDocs(docRef);
-      setSize(docSnap.size);
+      if(docSnap.size > 0){
+        router.replace("/user/mainHome")
+      }
     } catch {}
   };
 

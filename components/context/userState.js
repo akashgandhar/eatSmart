@@ -7,8 +7,11 @@ import Footer from "../footer";
 import Header from "../header";
 
 const UserState = (props) => {
-  const [user, setUser] = useState("null");
+  const [user, setUser] = useState();
   const router = useRouter();
+
+  const [bmi, setBmi] = useState();
+  const [size, setSize] = useState(0);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -26,7 +29,9 @@ const UserState = (props) => {
   return (
     <UserContext.Provider value={data}>
       <Header />
+
       {props.children}
+
       <Footer />
     </UserContext.Provider>
   );

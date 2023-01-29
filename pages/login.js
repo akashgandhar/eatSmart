@@ -31,12 +31,12 @@ export default function Login() {
   };
   return (
     <div
-      className="w-screen h-screen"
-      style={{
-        backgroundImage:
-          "url('https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/bg-01.jpg?alt=media&token=a08299a0-2250-4504-8329-d074bb381628')",
-        backgroundSize: "cover",
-      }}
+      className="w-screen h-screen bg-gradient-to-br from-sky-50 to-gray-200"
+      // style={{
+      //   backgroundImage:
+      //     "url('https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/bg-01.jpg?alt=media&token=a08299a0-2250-4504-8329-d074bb381628')",
+      //   backgroundSize: "cover",
+      // }}
     >
       <section>
         <div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">

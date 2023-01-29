@@ -1,20 +1,10 @@
-import Head from "next/head";
-import Login from "./login";
-import Link from "next/link";
-import UserState from "@/components/context/userState";
-import { useContext } from "react";
 import UserContext from "@/components/context/userContext";
-import { async } from "@firebase/util";
-import { GoogleAuthProvider } from "firebase/auth";
+import Head from "next/head";
+import Link from "next/link";
+import { useContext } from "react";
 
-export default function Home() {
-  const provider = new GoogleAuthProvider();
-
+export default function Index() {
   const u = useContext(UserContext);
-  3;
-
-  const handleGoogle = () => {};
-
   return (
     <>
       <Head>
@@ -37,84 +27,99 @@ export default function Home() {
                       class="w-10"
                       alt="tailus logo"
                     />
-                    <h2 class="mb-8 text-2xl text-cyan-900 font-bold">
-                      Sign in to unlock the <h1> best of EatSmart.</h1>
-                    </h2>
+                    <div class="mb-8 text-2xl text-cyan-900 font-bold">
+                      You are already Logged In <h1 className="mt-3"> </h1>
+                    </div>
                   </div>
-                  <div class="mt-16 grid space-y-4">
+                  {u ? (
                     <button
                       class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
  hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
                     >
                       <div class="relative flex items-center space-x-4 justify-center">
-                        <img
-                          src="https://tailus.io/sources/blocks/social/preview/images/google.svg"
-                          class="absolute left-0 w-5"
-                          alt="google logo"
-                        />
-                        <Link href="/">
+                        <Link href="/bmi">
                           <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
-                            Continue with Google
+                            Proceed
                           </span>
                         </Link>
                       </div>
                     </button>
-                    <button
-                      class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+                  ) : (
+                    <div class="mt-16 grid space-y-4">
+                      <button
+                        class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
  hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-                    >
-                      <div class="relative flex items-center space-x-4 justify-center">
-                        <img
-                          src="https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/WhatsApp%20Image%202023-01-26%20at%2016.39.40.jpg?alt=media&token=f453f18e-0926-4720-8e5d-f3e37c45abac"
-                          class="absolute left-0 w-5"
-                          alt="Facebook logo"
-                        />
-                        <Link href="/login">
-                          <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
-                            Continue with Email and Password
-                          </span>
-                        </Link>
-                      </div>
-                    </button>
+                      >
+                        <div class="relative flex items-center space-x-4 justify-center">
+                          <img
+                            src="https://tailus.io/sources/blocks/social/preview/images/google.svg"
+                            class="absolute left-0 w-5"
+                            alt="google logo"
+                          />
+                          <Link href="/">
+                            <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
+                              Continue with Google
+                            </span>
+                          </Link>
+                        </div>
+                      </button>
+                      <button
+                        class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                      >
+                        <div class="relative flex items-center space-x-4 justify-center">
+                          <img
+                            src="https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/WhatsApp%20Image%202023-01-26%20at%2016.39.40.jpg?alt=media&token=2bfa1a0e-248d-4aa2-bed8-fb49d75d451e"
+                            class="absolute left-0 w-5"
+                            alt="Facebook logo"
+                          />
+                          <Link href="/login">
+                            <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
+                              Continue with Email and Password
+                            </span>
+                          </Link>
+                        </div>
+                      </button>
 
-                    <button
-                      class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+                      <button
+                        class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
                                      hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-                    >
-                      <div class="relative flex items-center space-x-4 justify-center">
-                        <img
-                          src="https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/WhatsApp%20Image%202023-01-26%20at%2016.51.22.jpg?alt=media&token=8af13b58-604e-4d70-a187-34bebcf36107"
-                          class="absolute left-0 w-5"
-                          alt="Facebook logo"
-                        />
+                      >
+                        <div class="relative flex items-center space-x-4 justify-center">
+                          <img
+                            src="https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/WhatsApp%20Image%202023-01-26%20at%2016.51.22.jpg?alt=media&token=8deee800-3e65-4c0c-8f6c-7bb865ee1600"
+                            class="absolute left-0 w-5"
+                            alt="Facebook logo"
+                          />
 
-                        <Link href="/register">
-                          <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
-                            Sign Up for a new Account
-                          </span>
-                        </Link>
-                      </div>
-                    </button>
+                          <Link href="/register">
+                            <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
+                              Sign Up for a new Account
+                            </span>
+                          </Link>
+                        </div>
+                      </button>
 
-                    <button
-                      class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+                      <button
+                        class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
                                      hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-                    >
-                      <div class="relative flex items-center space-x-4 justify-center">
-                        <img
-                          src="https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/WhatsApp%20Image%202023-01-26%20at%2016.34.35.jpg?alt=media&token=4bf5fb5f-5b1d-4f3b-8d9c-4ded7d77a5f9"
-                          class="absolute left-0 w-5"
-                          alt="Facebook logo"
-                        />
+                      >
+                        <div class="relative flex items-center space-x-4 justify-center">
+                          <img
+                            src="https://firebasestorage.googleapis.com/v0/b/eat-smartz.appspot.com/o/WhatsApp%20Image%202023-01-26%20at%2016.34.35.jpg?alt=media&token=2a1db796-cf53-49b2-86e3-212c21a75f0b"
+                            class="absolute left-0 w-5"
+                            alt="Facebook logo"
+                          />
 
-                        <Link href="/foodCheck">
-                          <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
-                            Continue as Guest
-                          </span>
-                        </Link>
-                      </div>
-                    </button>
-                  </div>
+                          <Link href="/foodCheck">
+                            <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
+                              Continue as Guest
+                            </span>
+                          </Link>
+                        </div>
+                      </button>
+                    </div>
+                  )}
 
                   <div class="mt-16 space-y-4 text-gray-600 text-center sm:-mb-8">
                     <p class="text-xs">
