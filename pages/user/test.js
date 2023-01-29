@@ -9,7 +9,7 @@ export default function Test({posts}) {
 export async function getStaticProps() {
     // Call an external API endpoint to get posts.
     // You can use any data fetching library
-    const res = await fetch('https://eat-smart.vercel.app/api/dataset')
+    const res = await fetch('https://eat-smart.vercel.app/api/hello')
     const posts = await res.json()
   
     // By returning { props: { posts } }, the Blog component
