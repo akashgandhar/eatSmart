@@ -1,6 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 
 export default function Display() {
+  const StyledRange = styled.input`
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 10px 0;
+    border-radius: 20px;
+    height: 25px;
+    background: linear-gradient(to right, #4caf50, #ff4500);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+    &:hover {
+      opacity: 1;
+    }
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: blue;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    &::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #4caf50;
+      cursor: pointer;
+    }
+  `;
+
+  const [level, setLevel] = useState(0);
+
   return (
     <div class="grid grid-cols-1  bg-gradient-to-r from-cyan-500 to-purple-500 h-auto p-5">
       <div class=" h-auto items-center mb-4 flex">
@@ -22,25 +56,23 @@ export default function Display() {
           </div>
         </div>
       </div>
-      
 
-      
-
-      {/* card part */}
-      {/* <!-- component --> */}
-      {/* <script src="https://cdn.tailwindcss.com"></script> */}
-      {/* <script>
-    tailwind.config = {
-    theme: {
-        extend: {
-            animation: {
-                'spin-slow': 'spin 5s linear infinite',
-            },
-        },
-    },
-    plugins: [],
-}
-</script> */}
+      {/* <StyledSlider/> */}
+      <div className="w-full flex items-center justify-center">
+        <div class="slidecontainer w-1/2">
+          <StyledRange type="range" min="0" max="10" value={level} />
+          <div className="flex w-full">
+            <div className="relative w-1/2">
+              <span className="left-0 absolute">Low</span>
+              <span className="right-0 absolute">Med</span>
+            </div>
+            <div className="relative w-1/2">
+              <span className="left-0 absolute">ium</span>
+              <span className="right-0 absolute">High</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

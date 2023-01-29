@@ -84,7 +84,7 @@ export default function Bmi() {
     } else {
       try {
         const docRef = `users/${u}/diseases`;
-        await setDoc(doc(db, docRef, disease), {
+        await setDoc(doc(db, docRef, "disease"), {
           Name: disease,
           Saverity: saveor,
           Carbohydrate: dNuetrient.Carbohydrate * factor[saveor - 1],
