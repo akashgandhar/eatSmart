@@ -24,9 +24,11 @@ export default function Display() {
       </div>
       
 
+      
+
       {/* card part */}
       {/* <!-- component --> */}
-      <script src="https://cdn.tailwindcss.com"></script>
+      {/* <script src="https://cdn.tailwindcss.com"></script> */}
       {/* <script>
     tailwind.config = {
     theme: {
