@@ -28,7 +28,7 @@ export default function Display() {
         <div class="text-4xl font-extrabold leading-none">Nutrition Facts</div>
        
         <div class="flex justify-between font-bold border-b-8 border-black">
-          <div>Serving size</div>
+          <div>Standed has been taken as 100g/l</div>
         </div>
         <div class="flex justify-between items-end font-extrabold">
           <div>
