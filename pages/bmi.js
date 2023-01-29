@@ -14,27 +14,38 @@ export default function Bmi() {
   const [lname, setLName] = useState();
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
+  const user = useContext(UserContext);
 
   const [bmi, setBmi] = useState();
+
+  const [profile, setProfile] = useState({ BMI: 0 });
 
   const GetBmi = async () => {
     try {
       const docRef = doc(db, `users`, user);
       const docSnap = await getDoc(docRef);
 
-      if (docSnap.data().BMI > 0) {
-        router.replace("/user/diseaseSelect");
+      if (docSnap.exists) {
+        setProfile(docSnap.data());
+        console.log(profile);
       }
-    } catch {}
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   const router = useRouter();
 
   useEffect(() => {
-    GetBmi();
-  }, [bmi]);
+    console.log(user);
+    console.log(profile);
+    if (profile.BMI > 0) {
+      router.push("/user/diseaseSelect");
+    } else {
+      GetBmi();
+    }
+  }, [profile,user]);
 
-  const user = useContext(UserContext);
   const [image, setImage] = useState("nil");
   const [imgUrl, setImgUrl] = useState(
     "https://st3.depositphotos.com/13159112/17145/v/450/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
@@ -108,7 +119,7 @@ export default function Bmi() {
             <img className="w-28 h-28 rounded-full object-cover" src={imgUrl} />
           </div>
 
-          <div class="grid max-w-3xl gap-2 py-10 px-8 sm:grid-cols-2 bg-white rounded-md border-t-4 border-purple-400">
+          <div class="grid max-w-3xl gap-2 py-10 sm:grid-cols-2 bg-white rounded-md border-t-4 border-purple-400">
             <section class="flex items-center justify-center ">
               <input
                 onChange={(e) => {

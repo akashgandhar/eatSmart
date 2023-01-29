@@ -1,0 +1,41 @@
+[
+    {
+      "id": 9813,
+      "uid": "990b876d-fb44-46c7-86a8-45b1e15d2ed2",
+      "brand": "Lowenbrau",
+      "name": "Trois Pistoles",
+      "style": "Belgian Strong Ale",
+      "hop": "Newport",
+      "yeast": "2124 - Bohemian Lager",
+      "malts": "Wheat mal",
+      "ibu": "60 IBU",
+      "alcohol": "2.4%",
+      "blg": "10.6°Blg"
+    },
+    {
+      "id": 3724,
+      "uid": "24583bdb-7769-48d3-a62a-f1c78e424072",
+      "brand": "Budweiser",
+      "name": "Delirium Noctorum",
+      "style": "Merican Ale",
+      "hop": "Ahtanum",
+      "yeast": "1762 - Belgian Abbey II",
+      "malts": "Wheat mal",
+      "ibu": "88 IBU",
+      "alcohol": "7.7%",
+      "blg": "11.8°Blg"
+    },
+    {
+      "id": 3636,
+      "uid": "e36cdab5-a8ad-4b80-955c-3f6da61d107a",
+      "brand": "Amstel",
+      "name": "Maudite",
+      "style": "Amber Hybrid Beer",
+      "hop": "Bitter Gold",
+      "yeast": "1084 - Irish Ale",
+      "malts": "Victory",
+      "ibu": "24 IBU",
+      "alcohol": "4.0%",
+      "blg": "16.8°Blg"
+    }
+  ]

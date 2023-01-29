@@ -72,8 +72,9 @@ export default function Bmi() {
     try {
       const docRef = collection(db, `users/${u}/diseases`);
       const docSnap = await getDocs(docRef);
-      if(docSnap.size > 0){
-        router.replace("/user/mainHome")
+      if (docSnap.size > 0) {
+        setSize(docSnap.size);
+        console.log(size);
       }
     } catch {}
   };
@@ -101,11 +102,12 @@ export default function Bmi() {
 
   useEffect(() => {
     // console.log(u);
-    GetDSize().then(() => {
-      if (size > 0) {
-        router.push("/user/mainHome");
-      }
-    });
+
+    if (size > 0) {
+      router.replace("/user/mainHome");
+    } else {
+      GetDSize();
+    }
   }, [size]);
 
   const [pick, setPick] = useState(false);
