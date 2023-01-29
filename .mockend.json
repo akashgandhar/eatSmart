@@ -1,10 +1,15 @@
 {
   "Post": {
     "_": {
-      "items": 10,
-      "disease": {
-        "name": "jkghgfkgj"
-      }
+      "items": 10
+    },
+
+    "disease": {
+      "string": ["gdf", "dfggdds", "dfghdhdg"]
+    },
+
+    "post": {
+      "other-props": "dghdgfhd"
     }
   }
 }
