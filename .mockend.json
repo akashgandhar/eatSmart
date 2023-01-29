@@ -1,13 +1,14 @@
 {
   "Post": {
     "_": {
-      "items": 10
+      "items": 3
     },
 
-    "disease": {
-      "string": ["gdf", "dfggdds", "dfghdhdg"]
+    "Name": {
+      "string": ["kurkure", "parle-g", "choco"]
+    },
+    "carb": {
+      "string": ["5", "9", "77"]
     }
-
-   
   }
 }
