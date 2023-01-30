@@ -1,22 +1,9 @@
 import UserContext from "@/components/context/userContext";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import { db, storage } from "@/firebase";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import Link from "next/link";
+import { db } from "@/firebase";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import RangeSlider from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
+import { ScrollMenu } from "react-horizontal-scrolling-menu";
 
 export default function Bmi() {
   const [gender, setGender] = useState();
@@ -58,10 +45,12 @@ export default function Bmi() {
       const docRef = doc(db, `users/${u}/diseases`, "disease");
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        setDisease(docSnap.data().Name)
-        router.replace("/user/mainHome")
+        setDisease(docSnap.data().Name);
+        router.replace("/user/mainHome");
       }
-    } catch (e) { console.log(e.message); }
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   const GetDList = async () => {
@@ -73,7 +62,7 @@ export default function Bmi() {
         list.push(doc.data().Disease_Name);
       });
       setData(list);
-    } catch { }
+    } catch {}
   };
 
   const factor = [1.8, 1.4, 1, 0.6, 0.2];
@@ -105,16 +94,10 @@ export default function Bmi() {
     }
   };
 
-
-
-
-
-
   useEffect(() => {
     GetDSize();
     GetdNuetrients();
     GetDList();
-
   }, [disease]);
 
   const [pick, setPick] = useState(false);
@@ -167,7 +150,7 @@ export default function Bmi() {
                             <>
                               <div
                                 onClick={() => {
-                                  setDisease(e)
+                                  setDisease(e);
                                   setPick(false);
                                 }}
                                 key={index}

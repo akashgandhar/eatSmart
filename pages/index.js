@@ -28,7 +28,8 @@ export default function Index() {
                       alt="tailus logo"
                     />
                     <div class="mb-8 text-2xl text-cyan-900 font-bold">
-                      You are already Logged In <h1 className="mt-3"> </h1>
+                      {u ? "You are already Logged In" : "Log In To Continue"}
+                      <h1 className="mt-3"> </h1>
                     </div>
                   </div>
                   {u ? (

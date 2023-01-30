@@ -25,7 +25,9 @@
     "react-dom": "18.2.0",
     "react-horizontal-scrolling-menu": "^3.2.3",
     "react-html5-camera-photo": "^1.5.11",
+    "react-modal": "^3.16.1",
     "react-range-slider-input": "^3.0.7",
+    "reactjs-popup": "^2.0.5",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
