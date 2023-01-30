@@ -28,10 +28,10 @@ export default function Bmi() {
   const u = useContext(UserContext);
 
   const [disease, setDisease] = useState("Select Disease");
-
+  const router = useRouter();
   const [saveor, setSavour] = useState(1);
 
-  const [size, setSize] = useState(0);
+  const [size, setSize] = useState();
 
   const [data, setData] = useState([]);
 
@@ -55,13 +55,13 @@ export default function Bmi() {
 
   const GetDSize = async () => {
     try {
-      const docRef = collection(db, `users/${u}/diseases`);
-      const docSnap = await getDocs(docRef);
-      if (docSnap.size > 0) {
-        setSize(docSnap.size);
-        console.log(size);
+      const docRef = doc(db, `users/${u}/diseases`, "disease");
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setDisease(docSnap.data().Name)
+        router.replace("/user/mainHome")
       }
-    } catch {}
+    } catch (e) { console.log(e.message); }
   };
 
   const GetDList = async () => {
@@ -73,14 +73,14 @@ export default function Bmi() {
         list.push(doc.data().Disease_Name);
       });
       setData(list);
-    } catch {}
+    } catch { }
   };
 
   const factor = [1.8, 1.4, 1, 0.6, 0.2];
 
   const sendDisease = async () => {
-    if (!disease || !saveor) {
-      alert("Enter Missing Details");
+    if (disease === "Select Disease" || !saveor || !disease) {
+      alert("Enter Missing Details:");
     } else {
       try {
         const docRef = `users/${u}/diseases`;
@@ -105,22 +105,17 @@ export default function Bmi() {
     }
   };
 
-  const router = useRouter();
+
+
+
+
 
   useEffect(() => {
-    // console.log(u);
-
+    GetDSize();
     GetdNuetrients();
-    console.log(dNuetrient);
-
     GetDList();
 
-    // if (size > 0) {
-    //   router.replace("/user/mainHome");
-    // } else {
-    //   GetDSize();
-    // }
-  }, [size, disease]);
+  }, [disease]);
 
   const [pick, setPick] = useState(false);
 
@@ -172,7 +167,7 @@ export default function Bmi() {
                             <>
                               <div
                                 onClick={() => {
-                                  setDisease(e);
+                                  setDisease(e)
                                   setPick(false);
                                 }}
                                 key={index}
