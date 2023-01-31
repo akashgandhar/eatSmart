@@ -28,11 +28,12 @@ const UserState = (props) => {
 
   return (
     <UserContext.Provider value={data}>
-      <Header />
+      {/* <Header /> */}
+
 
       {props.children}
 
-      <Footer />
+      {/* <Footer /> */}
     </UserContext.Provider>
   );
 };

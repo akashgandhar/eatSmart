@@ -1,6 +1,27 @@
-import React from "react";
+import { db } from "@/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import React, { useState } from "react";
 
 export default function Footer() {
+  const [newsletter, setNewsletter] = useState("");
+
+  const sendNewsletter = async () => {
+    if (!newsletter) {
+      alert("type your email first");
+    } else {
+      try {
+        const docRef = doc(db, `NewsLetters`, newsletter);
+        await setDoc(docRef,{
+          email: newsletter
+        }).then(() => {
+          alert("success");
+        });
+      } catch (e) {
+        alert(e.message);
+      }
+    }
+  };
+
   return (
     <footer class="text-center bg-gray-900 text-white">
       <div class="container px-6 pt-6">
@@ -149,7 +170,10 @@ export default function Footer() {
 
               <div class="md:mb-6">
                 <input
-                  type="text"
+                  onChange={(e) => {
+                    setNewsletter(e.target.value);
+                  }}
+                  type="email"
                   class="
                 form-control
                 block
@@ -167,14 +191,14 @@ export default function Footer() {
                 m-0
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
               "
-                  id="exampleFormControlInput1"
+                  // id="exampleFormControlInput1"
                   placeholder="Email address"
                 />
               </div>
 
               <div class="md:mr-auto mb-6">
-                <button
-                  type="submit"
+                <button onClick={()=>{sendNewsletter();}}
+                  // type="submit"  
                   class="inline-block px-6 py-2 border-2 border-white text-white font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                 >
                   Subscribe
@@ -186,15 +210,16 @@ export default function Footer() {
 
         <div class="mb-6">
           <p>
-            This application is designed for every individual who want to control their consup
+            This application is designed for every individual who want to
+            control their Diet
           </p>
         </div>
       </div>
 
       <div class="text-center p-4">
         © 2021 Copyright:
-        <a class="text-white" href="https://tailwind-elements.com/">
-          Tailwind Elements
+        <a class="text-white" href="/">
+          EatSmart Technology
         </a>
       </div>
     </footer>
