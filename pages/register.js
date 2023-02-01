@@ -1,15 +1,17 @@
 import { auth, db } from "@/firebase";
+import { Button } from "@mui/material";
+import UserContext from "components/context/userContext";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
-import React, { use, useState } from "react";
+import React, { use, useContext, useState } from "react";
 
 export default function Register() {
   const router = useRouter();
   const [name, setName] = useState("null");
   const [email, setEmail] = useState("null");
   const [password, setPassword] = useState("null");
-
+  const u = useContext(UserContext)
   const [eye, setEye] = useState(false);
 
   const handlesignup = (e) => {
@@ -24,7 +26,7 @@ export default function Register() {
         })
           .then(async () => {
             try {
-              await setDoc(doc(db, "users", name), {
+              await setDoc(doc(db, "users", email), {
                 Name: name,
                 Email: email,
               });
@@ -48,12 +50,110 @@ export default function Register() {
   };
 
   return (
-    <div className="w-screen h-screen bg-gradient-to-br from-sky-50 to-gray-200">
-      <section>
+    <div className="w-full h-screen ">
+      <section className="">
         <div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
           <div class="justify-center mx-auto text-left align-bottom transition-all transform bg-white rounded-lg sm:align-middle sm:max-w-2xl sm:w-full">
             <div class="grid flex-wrap items-center justify-center grid-cols-1 mx-auto shadow-xl lg:grid-cols-2 rounded-xl">
-              <div class="w-full px-6 py-3">
+              <div class="m-auto w-full ">
+                <div class="rounded-xl w-full bg-white shadow-xl">
+                  <div class="p-6 sm:p-16 ">
+                    <div class="space-y-4 ">
+                      <img
+                        src="/lg.png"
+                        // loading="lazy"
+                        class="w-20 m-0"
+                        alt="tailus logo"
+                      />
+                      <div class="mb-6 mx-2 text-2xl text-cyan-900 font-bold">
+                        Sign Up
+                        <h1 className="mt-3"> </h1>
+                      </div>
+                    </div>
+
+                    <div class="mt-16 grid space-y-4 ">
+                      <div>
+                        {/* <label for="name" class="sr-only">
+                            Name
+                          </label> */}
+                        <input
+                          onChange={(e) => {
+                            setName(e.target.value);
+                          }}
+                          type="text"
+                          name="name"
+                          id="email"
+                          class="block w-full px-5 py-3 text-base text-neutral-900  transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-200 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                          placeholder="Name"
+                        />
+                      </div>
+                      <div>
+                        {/* <label for="name" class="sr-only">
+                            Name
+                          </label> */}
+                        <input
+                          onChange={(e) => {
+                            setName(e.target.value);
+                          }}
+                          type="text"
+                          name="name"
+                          id="email"
+                          class="block w-full px-5 py-3 text-base text-neutral-900  transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-200 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                          placeholder="Email"
+                        />
+                      </div>
+                      <div>
+                        {/* <label for="name" class="sr-only">
+                            Name
+                          </label> */}
+                        <input
+                          onChange={(e) => {
+                            setName(e.target.value);
+                          }}
+                          type="text"
+                          name="name"
+                          id="email"
+                          class="block w-full px-5 py-3 text-base text-neutral-900  transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-200 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                          placeholder="Password"
+                        />
+                      </div>
+
+                    </div>
+
+                    <div class="mt-16 space-y-4 text-gray-600 text-center sm:-mb-8">
+                      <p class="text-xs">
+                        By proceeding, you agree to our{" "}
+                        <a href="#" class="underline">
+                          Terms of Use
+                        </a>{" "}
+                        and confirm you have read our{" "}
+                        <a href="#" class="underline">
+                          Privacy and Cookie Statement
+                        </a>
+                        .
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="order-first hidden w-full h-full lg:block">
+                <img
+                  class=" h-full bg-cover rounded-l-lg"
+                  src="https://images.unsplash.com/photo-1576021182211-9ea8dced3690?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGhlYWx0aHklMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+
+
+{/* <div class="w-full px-6 py-3">
                 <div>
                   <div class="mt-3 text-left sm:mt-5">
                     <div class="inline-flex items-center w-full">
@@ -146,18 +246,4 @@ export default function Register() {
                     </a>
                   </div>
                 </div>
-              </div>
-              <div class="order-first hidden w-full h-full lg:block">
-                <img
-                  class="object-cover h-full bg-cover rounded-l-lg"
-                  src="https://images.unsplash.com/photo-1576021182211-9ea8dced3690?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGhlYWx0aHklMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+              </div> */}

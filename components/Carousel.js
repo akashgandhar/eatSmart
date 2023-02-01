@@ -60,7 +60,7 @@ const Testimonials = () => {
                     <Button
                       variant="outlined"
                       startIcon={
-                        <img src="/mail2.jpg" className="w-5 h-full " />
+                        <img src="/mail2.png" className="w-5 h-full " />
                       }
                     >
                       Sign In / Sign Up

@@ -1,9 +1,11 @@
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { useLottie } from "lottie-react";
 // import animationData from "../../utils/button.json";
 import animationData from "../../utils/btn.json";
+import UserContext from "components/context/userContext";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const options = {
@@ -11,8 +13,11 @@ const Navbar = () => {
     loop: true,
   };
   const { View } = useLottie(options);
+
+  const u = useContext(UserContext);
+  const router = useRouter();
   return (
-    <nav style={{ backgroundColor: "#cbd5e0" }} className="bg-transparent ">
+    <nav style={{ backgroundColor: "#f7fafc" }} className="bg-transparent ">
       <div className="container mx-auto flex items-center justify-between px-4 py-2">
         <Link href="/">
           <img src="/logo.png" alt="Logo" className="w-20 h-20 mx-auto" />
@@ -24,11 +29,18 @@ const Navbar = () => {
         >
           Eat Smart
         </h1> */}
-        <ul className="flex">
-          <li className="hover:cursor-pointer hover:scale-95 shadow-md rounded-3xl w-64 right-0">
+        {!u ? <ul className="flex">
+          <li onClick={() => {
+            router.push("/register")
+          }} className="hover:cursor-pointer hover:scale-95 shadow-md rounded-3xl w-full  right-0">
             {View}
           </li>
-        </ul>
+        </ul> :
+          <ul className="flex">
+            <li className="hover:cursor-pointer hover:scale-95 shadow-md rounded-3xl w-full  right-0">
+              {/* {View} */}<Avatar alt="Cindy Baker" className="" />
+            </li>
+          </ul>}
       </div>
     </nav>
   );

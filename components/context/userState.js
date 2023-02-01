@@ -18,8 +18,8 @@ const UserState = (props) => {
       if (user) {
         setUser(user.displayName);
       } else {
-        console.log("logged out ");
-        router.push("/");
+        // console.log("logged out ");
+        // router.push("/");
       }
     });
   }, [auth]);
