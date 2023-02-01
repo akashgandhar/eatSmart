@@ -9,11 +9,13 @@ import { useContext } from "react";
 import UserContext from "./context/userContext";
 import Link from "next/link";
 import { Button } from "@mui/material";
+import { useRouter } from "next/router";
 
 SwiperCore.use([EffectCoverflow, Pagination]);
 
 const Testimonials = () => {
   const u = useContext(UserContext);
+  const router = useRouter();
 
   return (
     <div>
@@ -29,9 +31,10 @@ const Testimonials = () => {
                     class="w-20 m-0"
                     alt="tailus logo"
                   />
-                  <div class="mb-6 mx-2 text-2xl text-cyan-900 font-bold">
-                    {u ? "You are already Logged In" : "Continue with"}
-                    <h1 className="mt-3"> </h1>
+                  <div class="mb-1 mx-2 text-2xl text-cyan-900 font-bold">
+                    <h1 className="mt-3">
+                      {u ? "You are already Logged In" : "Continue with"}{" "}
+                    </h1>
                   </div>
                 </div>
                 {u ? (
@@ -58,6 +61,9 @@ const Testimonials = () => {
                       Google
                     </Button>
                     <Button
+                      onClick={() => {
+                        router.push("/register");
+                      }}
                       variant="outlined"
                       startIcon={
                         <img src="/mail2.png" className="w-5 h-full " />

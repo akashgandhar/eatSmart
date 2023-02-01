@@ -1,5 +1,5 @@
 import { auth, db } from "@/firebase";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import UserContext from "components/context/userContext";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
@@ -16,11 +16,17 @@ export default function Register() {
   const [eye, setEye] = useState(false);
 
 
+  const [isLoading, setIsLoading] = useState(false);
+
+
 
 
   const handlesignup = (e) => {
+
     e.preventDefault();
     try {
+      setIsLoading(true)
+
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
@@ -42,6 +48,8 @@ export default function Register() {
             .then(() => {
               alert("success");
               router.push("/login");
+              setIsLoading(false)
+
             });
 
           // ...
@@ -50,16 +58,20 @@ export default function Register() {
           const errorCode = error.code;
           const errorMessage = error.message;
           // ..
+          setIsLoading(false)
+
           alert(errorMessage);
         });
     } catch (e) {
       alert(e.message)
+      setIsLoading(false)
+
     }
   };
 
 
   useEffect(() => {
-    if (!u) {
+    if (u) {
       router.push("/bmi")
     }
   }, [u])
@@ -136,7 +148,6 @@ export default function Register() {
                       </div>
                       <div className="w-full flex justify-center items-center">
                         <Button onClick={(e) => {
-                          console.log("clicked");
                           if (!name || !email || !password) {
                             alert("Enter Details")
                           }
@@ -152,7 +163,7 @@ export default function Register() {
                             }
                           }
                         }} variant="outlined" color="success">
-                          Sign Up
+                          {isLoading?<CircularProgress  />:"Sign Up"}
                         </Button>
                       </div>
 
