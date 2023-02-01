@@ -3,8 +3,9 @@ import { Button } from "@mui/material";
 import UserContext from "components/context/userContext";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import Router from "next/dist/server/router";
 import { useRouter } from "next/router";
-import React, { use, useContext, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 
 export default function Register() {
   const router = useRouter();
@@ -13,6 +14,9 @@ export default function Register() {
   const [password, setPassword] = useState();
   const u = useContext(UserContext)
   const [eye, setEye] = useState(false);
+
+
+
 
   const handlesignup = (e) => {
     e.preventDefault();
@@ -52,6 +56,15 @@ export default function Register() {
       alert(e.message)
     }
   };
+
+
+  useEffect(() => {
+    if (!u) {
+      router.push("/bmi")
+    }
+  }, [u])
+
+
 
   return (
     <div className="w-full h-screen ">
@@ -132,7 +145,7 @@ export default function Register() {
 
                             if (email.includes("@")) {
                               handlesignup(e)
-                            }else{
+                            } else {
                               alert(
                                 "email wrong"
                               )
