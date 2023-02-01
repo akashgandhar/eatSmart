@@ -218,9 +218,9 @@ export default function Footer() {
 
       <div class="text-center p-4">
         © 2021 Copyright:
-        <a class="text-white" href="/">
+        <h1 class="text-white" href="/">
           EatSmart Technology
-        </a>
+        </h1>
       </div>
     </footer>
   );
