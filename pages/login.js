@@ -87,14 +87,14 @@ export default function Login() {
                     <div className="w-full flex justify-center items-center">
                       <Button onClick={(e) => {
                         console.log("clicked");
-                        if (!name || !email || !password) {
+                        if (!email || !password) {
                           alert("Enter Details")
                         }
                         else {
 
 
                           if (email.includes("@")) {
-                            handlesignup(e)
+                            handleSignIn(e)
                           }else{
                             alert(
                               "email wrong"
