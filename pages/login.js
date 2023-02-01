@@ -47,7 +47,7 @@ export default function Login() {
                       alt="tailus logo"
                     /> */}
                     <div class="mb-6 mx-2 text-2xl text-cyan-900 font-bold">
-                      Sign Up
+                      Sign In
                       <h1 className="mt-3"> </h1>
                     </div>
                   </div>
