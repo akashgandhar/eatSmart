@@ -3,7 +3,7 @@ import { auth } from "@/firebase";
 import { Button, CircularProgress } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 export default function Login() {
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function Login() {
   const [email, setEmail] = useState("null");
   const [password, setPassword] = useState("null");
   const [isLoading, setIsLoading] = useState(false);
-
+  const u = useContext(UserContext);
   const [eye, setEye] = useState(false);
 
   const handleSignIn = () => {
@@ -22,7 +22,7 @@ export default function Login() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          router.push("/bmi");
+          router.push("/user/mainHome");
           // ...
         })
         .catch((error) => {
@@ -35,14 +35,21 @@ export default function Login() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (u) {
+      router.push("/user/mainHome");
+    }
+  }, [u]);
+
   return (
     <div className="w-full h-screen ">
       <section className="">
         <div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
           <div class="justify-center mx-auto text-left align-bottom transition-all transform bg-white rounded-lg sm:align-middle sm:max-w-2xl sm:w-full ">
             <div class="grid flex-wrap items-center justify-center  grid-cols-1 mx-auto shadow-xl lg:grid-cols-2 rounded-xl">
-              <div class="m-auto w-full ">
-                <div class="rounded-xl w-full bg-white shadow-xl ">
+              <div class="m-auto w-full h-full">
+                <div class="rounded-xl w-full bg-white shadow-xl h-full">
                   <div class="p-6 sm:p-16 ">
                     <div class="space-y-4 ">
                       {/* <img

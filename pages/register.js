@@ -70,11 +70,11 @@ export default function Register() {
   };
 
 
-  useEffect(() => {
-    if (u) {
-      router.push("/bmi")
-    }
-  }, [u])
+  // useEffect(() => {
+  //   if (u) {
+  //     router.push("/user/mainHome")
+  //   }
+  // }, [u])
 
 
 
@@ -82,10 +82,10 @@ export default function Register() {
     <div className="w-full h-screen ">
       <section className="">
         <div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24">
-          <div class="justify-center mx-auto text-left align-bottom transition-all transform bg-white rounded-lg sm:align-middle sm:max-w-2xl sm:w-full ">
+          <div class="justify-center mx-auto text-left align-bottom transition-all transform bg-white rounded-lg sm:align-middle sm:max-w-3xl sm:w-full ">
             <div class="grid flex-wrap items-center justify-center grid-cols-1 mx-auto shadow-xl lg:grid-cols-2 rounded-xl">
               <div class="m-auto w-full h-full ">
-                <div class="rounded-xl w-full bg-white shadow-xl">
+                <div class="rounded-xl w-full bg-white shadow-xl h-full">
                   <div class="p-6 sm:p-16 ">
                     <div class="space-y-4 ">
                       {/* <img
@@ -187,7 +187,7 @@ export default function Register() {
               </div>
               <div class="order-first hidden w-full h-full lg:block">
                 <img
-                  class=" h-full bg-cover rounded-l-lg"
+                  class=" bg-cover rounded-l-lg"
                   src="https://images.unsplash.com/photo-1576021182211-9ea8dced3690?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGhlYWx0aHklMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
                   alt=""
                 />
