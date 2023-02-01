@@ -228,9 +228,9 @@ export default function MainHome() {
         <div className=" w-1/2 rounded-2xl">
           <div className=" justify-center rounded-xl p-2">
             <ScrollMenu>
-              {pList.map((e) => {
+              {pList.map((e,index) => {
                 return (
-                  <div className="flex w-28" id="jj">
+                  <div key={index} className="flex w-28" id="jj">
                     <button
                       onClick={() => {
                         router.push({ pathname: "/user/display", query: e });
