@@ -6,6 +6,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "react-html5-camera-photo/build/css/index.css";
 import { useRouter } from "next/router";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SendIcon from "@mui/icons-material/Send";
 // import { Camera, CameraResultType } from "@capacitor/camera";
 import {
@@ -29,6 +30,7 @@ export default function MainHome() {
   const u = useContext(UserContext);
   const router = useRouter();
   const [product, setProduct] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   // const [open, setOpen] = useState(false);
   // const [list1, setList] = useState([]);
@@ -52,11 +54,11 @@ export default function MainHome() {
     // Take a photo
     const capturedPhoto = await Camera.getPhoto({
       resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera,
-      quality: 1,
+      // source: CameraSource.Camera,
+      // quality: 20,
       width: 360,
       height: 640,
-      source:CameraSource.Photos
+      source: CameraSource.Photos,
     }).then((uri) => {
       console.log(uri);
       // checkPic(uri);
@@ -136,11 +138,30 @@ export default function MainHome() {
                         className="hover:opacity-80"
                       />
                     </button>
+
                     <input
+                      onChange={(e) => {
+                        setSearchText(e.target.value);
+                      }}
                       type="text"
                       class="flex-1 px-2 py-1 text-gray-700 focus:outline-none focus:shadow-outline"
                       placeholder="Search"
                     />
+                    <button class="text-gray-500 hover:text-gray-700 mx-3">
+                      <ArrowForwardIcon
+                        onClick={() => {
+                          if (!searchText) {
+                            alert("Write SomeThing First");
+                          } else {
+                            router.push({
+                              pathname: "/result",
+                              query: searchText,
+                            });
+                          }
+                        }}
+                        className="hover:opacity-80"
+                      />
+                    </button>
                   </div>
                   {product.length > 0 && (
                     <div class="flex items-center px-2 py-3 bg-white rounded-xl shadow">
@@ -153,14 +174,24 @@ export default function MainHome() {
                               className="flex items-center justify-between"
                             >
                               <Button
-                                key={index}
+                                onClick={() => {
+                                  router.push({
+                                    pathname: "/result",
+                                    query: e,
+                                  });
+                                }}
                                 className="p-3 border-b border-gray-200 w-full"
                                 variant=""
                               >
                                 {e}
                               </Button>
                               <Button
-                                key={index}
+                                onClick={() => {
+                                  router.push({
+                                    pathname: "/result",
+                                    query: e,
+                                  });
+                                }}
                                 // className="p-3 border-b border-gray-200 w-full"
                                 variant=""
                               >

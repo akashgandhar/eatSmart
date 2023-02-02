@@ -70,11 +70,11 @@ export default function Register() {
   };
 
 
-  // useEffect(() => {
-  //   if (u) {
-  //     router.push("/user/mainHome")
-  //   }
-  // }, [u])
+  useEffect(() => {
+    if (u) {
+      router.push("/user/mainHome")
+    }
+  }, [u])
 
 
 
