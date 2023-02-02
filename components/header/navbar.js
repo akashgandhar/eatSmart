@@ -92,7 +92,7 @@ const Navbar = () => {
           <ul className="flex">
             <li
               onClick={() => {
-                router.push("/login");
+                router.push("/register");
               }}
               className="hover:cursor-pointer hover:scale-95 shadow-md rounded-3xl w-full  right-0"
             >

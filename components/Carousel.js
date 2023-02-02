@@ -43,7 +43,7 @@ const Testimonials = () => {
  hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
                   >
                     <div class="relative flex items-center space-x-4 justify-center">
-                      <Link href="/bmi">
+                      <Link href="/user/mainHome">
                         <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
                           Proceed
                         </span>

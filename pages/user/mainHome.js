@@ -86,9 +86,13 @@ export default function MainHome() {
       "https://images.everydayhealth.com/images/diet-nutrition/all-about-bananas-nutrition-facts-health-benefits-recipes-and-more-rm-722x406.jpg";
 
     const tags = (
-      await computerVisionClient.analyzeImage(link, {
-        visualFeatures: ["Tags"],
-      })
+      await computerVisionClient
+        .analyzeImage(link, {
+          visualFeatures: ["Tags"],
+        })
+        .catch((e) => {
+          alert(e);
+        })
     ).tags;
 
     formatTags(tags);
@@ -141,7 +145,10 @@ export default function MainHome() {
                         {product.map((e, index) => {
                           return (
                             // <button className="p-3 border-b border-gray-200 w-full">
-                            <div key={index} className="flex items-center justify-between">
+                            <div
+                              key={index}
+                              className="flex items-center justify-between"
+                            >
                               <Button
                                 key={index}
                                 className="p-3 border-b border-gray-200 w-full"

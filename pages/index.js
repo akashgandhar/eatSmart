@@ -21,12 +21,10 @@ export default function Index() {
 
       {/* <Nav/> */}
 
-      <div style={{ backgroundColor: '#f7fafc' }} >
-
+      <div style={{ backgroundColor: "#f7fafc" }}>
         <div className="p-4">
           <Testimonials />
         </div>
-
       </div>
     </>
   );
