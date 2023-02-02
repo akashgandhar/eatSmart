@@ -63,7 +63,7 @@ export default function MainHome() {
       const metadata = {
         contentType: "image/jpeg",
       };
-      const storageRef = ref(storage, `${u}}/test.jpeg`);
+      const storageRef = ref(storage, `${u}/test.jpeg`);
 
       try {
         uploadString(storageRef, uri.dataUrl, "data_url", metadata)
