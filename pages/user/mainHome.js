@@ -36,8 +36,8 @@ export default function MainHome() {
   // const [data, setData] = useState();
   // const [pList, setPList] = useState([]);
 
-  const key = "5e4a30603e21445a83f41e84a687ccc2";
-  const endpoint = "https://eat-smart.cognitiveservices.azure.com/";
+  const key = "455ea10821d3493883d20c8635763e2f";
+  const endpoint = "https://eat-smart-paid.cognitiveservices.azure.com/";
 
   const computerVisionClient = new ComputerVisionClient(
     new ApiKeyCredentials({
