@@ -62,14 +62,14 @@ const Testimonials = () => {
                     </Button>
                     <Button
                       onClick={() => {
-                        router.push("/register");
+                        router.push("/login");
                       }}
                       variant="outlined"
                       startIcon={
                         <img src="/mail2.png" className="w-5 h-full " />
                       }
                     >
-                      Sign In / Sign Up
+                      Sign In 
                     </Button>
                     <Button
                       variant="outlined"
