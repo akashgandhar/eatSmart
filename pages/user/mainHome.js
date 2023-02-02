@@ -53,7 +53,7 @@ export default function MainHome() {
     const capturedPhoto = await Camera.getPhoto({
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera,
-      quality: 50,
+      quality: 10,
     }).then((uri) => {
       console.log(uri);
       // checkPic(uri);
