@@ -58,7 +58,6 @@ export default function Result() {
   return (
     <div style={{ backgroundColor: "#f7fafc" }}>
       <PicCard />
-      {/* <Quote/> */}
       <div class="flex flex-col bg-transparent mx-auto p-auto justify-around ">
         <h1 class="flex text-center py-5 m-auto font-bold text-2xl text-gray-800">
           NUTRITION PROFILE
@@ -80,7 +79,9 @@ export default function Result() {
               );
             })}
           </div>
+
         </div>
+          <Quote/>
       </div>
     </div>
   );

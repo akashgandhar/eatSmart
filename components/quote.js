@@ -7,9 +7,9 @@ export default function Quote() {
       {/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css"> */}
 
       <div class="flex items-center justify-center p-3 from-blue-400 via-purple-300 to-blue-400 bg-gradient-to-br">
-        <div class="w-full text-xl font-bold font-serif font max-w-lg py-8 flex flex-row items-center justify-center mx-auto bg-[#FFFBFB] rounded-lg shadow-xl">
-          "Recommended Foods"
-        </div>
+        {/* <div class="w-full text-xl font-bold font-serif font max-w-lg py-8 flex flex-row items-center justify-center mx-auto bg-[#FFFBFB] rounded-lg shadow-xl">
+          &quot;Recommended Foods&quot;
+        </div> */}
       </div>
       <div class="flex items-center justify-center p-3 from-blue-400 via-purple-300 to-blue-400 bg-gradient-to-bl">
         <div class="w-full max-w-lg py-8 flex flex-row items-center justify-center mx-1 bg-[#FFFBFB] bg-opacity-80 rounded-lg shadow-xl ">

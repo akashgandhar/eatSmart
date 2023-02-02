@@ -20,7 +20,7 @@ export default function Bmi() {
 
   const [size, setSize] = useState();
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([{ Disease: "nill" }]);
 
   const [dNuetrient, setDNuetrient] = useState([]);
 
@@ -59,7 +59,7 @@ export default function Bmi() {
       const docSnap = await getDocs(docRef);
       var list = [];
       docSnap.forEach((doc) => {
-        list.push(doc.data().Disease_Name);
+        list.push(doc.data().Disease);
       });
       setData(list);
     } catch {}
@@ -104,8 +104,11 @@ export default function Bmi() {
 
   return (
     <>
-      <div className="h-screen w-screen bg-gradient-to-br from-sky-50 to-gray-500 p-4 ">
-        <div class="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-40">
+      <div
+        style={{ backgroundColor: "#f7fafc" }}
+        className="h-auto w-full  p-4 "
+      >
+        <div class="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-40 my-20">
           <div class="m-auto md:w-8/12 lg:w-6/12 xl:w-8/12">
             <div class="rounded-xl bg-white shadow-xl">
               <div class="p-6 sm:p-16">
@@ -207,3 +210,6 @@ export default function Bmi() {
     </>
   );
 }
+
+//[alergy1,allergy2]
+//[[food1,food2][food1,food2][food1,food2]]

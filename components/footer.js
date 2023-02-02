@@ -11,8 +11,8 @@ export default function Footer() {
     } else {
       try {
         const docRef = doc(db, `NewsLetters`, newsletter);
-        await setDoc(docRef,{
-          email: newsletter
+        await setDoc(docRef, {
+          email: newsletter,
         }).then(() => {
           alert("success");
         });
@@ -23,9 +23,9 @@ export default function Footer() {
   };
 
   return (
-    <footer class="text-center bg-gray-900 text-white">
-      <div class="container px-6 pt-6">
-        <div class="flex justify-center mb-6">
+    <footer class="flex text-center justify-center bg-gray-900 text-white">
+      <div class=" justify-center container px-6 pt-6">
+        <div class="flex justify-center mb-6 ">
           <h1
             href="#!"
             type="button"
@@ -197,8 +197,11 @@ export default function Footer() {
               </div>
 
               <div class="md:mr-auto mb-6">
-                <button onClick={()=>{sendNewsletter();}}
-                  // type="submit"  
+                <button
+                  onClick={() => {
+                    sendNewsletter();
+                  }}
+                  // type="submit"
                   class="inline-block px-6 py-2 border-2 border-white text-white font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                 >
                   Subscribe
@@ -214,13 +217,12 @@ export default function Footer() {
             control their Diet
           </p>
         </div>
-      </div>
-
-      <div class="text-center p-4">
-        © 2021 Copyright:
-        <h1 class="text-white" href="/">
-          EatSmart Technology
-        </h1>
+        <div class="text-center p-4">
+          © 2021 Copyright:
+          <h1 class="text-white" href="/">
+            EatSmart Technology
+          </h1>
+        </div>
       </div>
     </footer>
   );

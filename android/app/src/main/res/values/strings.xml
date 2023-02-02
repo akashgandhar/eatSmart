@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">eatsmart</string>
+    <string name="title_activity_main">eatsmart</string>
+    <string name="package_name">com.eatsmart.app</string>
+    <string name="custom_url_scheme">com.eatsmart.app</string>
+</resources>
