@@ -32,6 +32,8 @@ export default function MainHome() {
   const [product, setProduct] = useState([]);
   const [searchText, setSearchText] = useState("");
 
+  var data = { image: "nil", name: searchText };
+
   // const [open, setOpen] = useState(false);
   // const [list1, setList] = useState([]);
   // const [uri, setUri] = useState();
@@ -75,6 +77,7 @@ export default function MainHome() {
           .then(() => {
             getDownloadURL(storageRef).then((url) => {
               console.log(url);
+              data["image"] = url;
               // setUri(url);
               checkPic(url);
             });
@@ -125,7 +128,7 @@ export default function MainHome() {
 
   return (
     <>
-      <div>
+      <div className="h-auto w-full  p-4 ">
         <div class="relative py-16 bg-transparent">
           <div class="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-40 h-auto">
             <div class="m-auto h-auto ">
@@ -142,26 +145,31 @@ export default function MainHome() {
                     <input
                       onChange={(e) => {
                         setSearchText(e.target.value);
+                        data["name"] = e.target.value;
                       }}
                       type="text"
                       class="flex-1 px-2 py-1 text-gray-700 focus:outline-none focus:shadow-outline"
                       placeholder="Search"
                     />
-                    <button class="text-gray-500 hover:text-gray-700 mx-3">
-                      <ArrowForwardIcon
-                        onClick={() => {
-                          if (!searchText) {
-                            alert("Write SomeThing First");
-                          } else {
-                            router.push({
-                              pathname: "/result",
-                              query: searchText,
-                            });
-                          }
-                        }}
-                        className="hover:opacity-80"
-                      />
-                    </button>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    <Button
+                      onClick={() => {
+                        if (!searchText) {
+                          alert("write something First");
+                        } else {
+                          router.push({
+                            pathname: "/result",
+                            query: data,
+                          });
+                        }
+                      }}
+                      className="mt-4"
+                      variant="outlined"
+                      endIcon={<SendIcon />}
+                    >
+                      Submit
+                    </Button>
                   </div>
                   {product.length > 0 && (
                     <div class="flex items-center px-2 py-3 bg-white rounded-xl shadow">
@@ -175,9 +183,10 @@ export default function MainHome() {
                             >
                               <Button
                                 onClick={() => {
+                                  data["name"] = e;
                                   router.push({
                                     pathname: "/result",
-                                    query: e,
+                                    query: data,
                                   });
                                 }}
                                 className="p-3 border-b border-gray-200 w-full"
@@ -187,9 +196,10 @@ export default function MainHome() {
                               </Button>
                               <Button
                                 onClick={() => {
+                                  data["name"] = e;
                                   router.push({
                                     pathname: "/result",
-                                    query: e,
+                                    query: data,
                                   });
                                 }}
                                 // className="p-3 border-b border-gray-200 w-full"

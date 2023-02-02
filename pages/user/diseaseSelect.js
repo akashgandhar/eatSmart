@@ -1,111 +1,79 @@
-import UserContext from "@/components/context/userContext";
-import { db } from "@/firebase";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import { ScrollMenu } from "react-horizontal-scrolling-menu";
+import UserContext from '@/components/context/userContext'
+import { db } from '@/firebase'
+import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
+import { useRouter } from 'next/router'
+import React, { useContext, useEffect, useState } from 'react'
+import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 
-export default function Bmi() {
-  const [gender, setGender] = useState();
-  const [fname, setFName] = useState();
-  const [lname, setLName] = useState();
-  const [height, setHeight] = useState(0);
-  const [weight, setWeight] = useState(0);
-
+export default function DiseaseSelect() {
   const u = useContext(UserContext);
-
-  const [disease, setDisease] = useState("Select Disease");
   const router = useRouter();
-  const [saveor, setSavour] = useState(1);
 
-  const [size, setSize] = useState();
 
-  const [data, setData] = useState([{ Disease: "nill" }]);
+  const [disease, setDisease] = useState('Select Disease')
+  const [saveor, setSavour] = useState(1)
 
-  const [dNuetrient, setDNuetrient] = useState([]);
+  const [data, setData] = useState([{ Disease: 'nill' }])
 
-  const GetdNuetrients = async () => {
-    if (!disease) {
-      alert("select disease");
+  const factor = [1.8, 1.4, 1, 0.6, 0.2]
+
+  const GetDiseaseData = async () => {
+    const q = collection(db, 'Disease_Data')
+
+    const querySnapshot = await getDocs(q)
+    var list = []
+    querySnapshot.forEach((doc) => {
+      list.push(doc.data())
+    })
+    setData(list)
+  }
+
+  const setUserDiseaseData = async () => {
+    if (!disease || !saveor) {
+      alert('Select Disease Disease')
     } else {
-      try {
-        const docRef = doc(db, `Disease_Data`, disease);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists) {
-          setDNuetrient(docSnap.data());
+      data.forEach(async (e) => {
+        if (e.Disease === disease) {
+          try {
+            await setDoc(doc(db, `users/${u}/Disease_Data`, e.Disease), {
+              Disease: e.Disease,
+              Severity: saveor,
+              Calcium: e.Calcium * factor[saveor - 1],
+              Iron: e.Iron * factor[saveor - 1],
+              Sodium: e.Sodium * factor[saveor - 1],
+              VitaminA: e.VitaminA * factor[saveor - 1],
+              VitaminC: e.VitaminC * factor[saveor - 1],
+              Cholesterol: e.Cholesterol * factor[saveor - 1],
+              Saturated_fat: e.Saturated_fat * factor[saveor - 1],
+              Protein: e.Protein * factor[saveor - 1],
+              Carbohydrate: e.Carbohydrate * factor[saveor - 1],
+              Energy: e.Energy * factor[saveor - 1],
+              Sugars: e.Sugars * factor[saveor - 1],
+              Fiber: e.Fiber * factor[saveor - 1],
+              Potassium: e.Potassium * factor[saveor - 1],
+              Total_Trans: e.Total_Trans * factor[saveor - 1],
+              Total_Lipid: e.Total_Lipid * factor[saveor - 1],
+            }).then(()=>{
+              alert("success")
+            })
+          } catch (e) {
+            console.log(e.message)
+          }
         }
-      } catch (e) {
-        alert(e.message);
-      }
+      })
     }
-  };
-
-  const GetDSize = async () => {
-    try {
-      const docRef = doc(db, `users/${u}/diseases`, "disease");
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setDisease(docSnap.data().Name);
-        router.replace("/user/mainHome");
-      }
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
-  const GetDList = async () => {
-    try {
-      const docRef = collection(db, `Disease_Data`);
-      const docSnap = await getDocs(docRef);
-      var list = [];
-      docSnap.forEach((doc) => {
-        list.push(doc.data().Disease);
-      });
-      setData(list);
-    } catch {}
-  };
-
-  const factor = [1.8, 1.4, 1, 0.6, 0.2];
-
-  const sendDisease = async () => {
-    if (disease === "Select Disease" || !saveor || !disease) {
-      alert("Enter Missing Details:");
-    } else {
-      try {
-        const docRef = `users/${u}/diseases`;
-        await setDoc(doc(db, docRef, "disease"), {
-          Name: disease,
-          Saverity: saveor,
-          Carbohydrate: dNuetrient.Carbohydrate * factor[saveor - 1],
-          Energy: dNuetrient.Energy * factor[saveor - 1],
-          Proteins: dNuetrient.Proteins * factor[saveor - 1],
-          Saturated_Fat: dNuetrient.Saturated_Fat * factor[saveor - 1],
-          Sodium: dNuetrient.Sodium * factor[saveor - 1],
-          Sugar: dNuetrient.Sugar * factor[saveor - 1],
-          Total_Fat: dNuetrient.Total_Fat * factor[saveor - 1],
-          Trans_Fat: dNuetrient.Trans_Fat * factor[saveor - 1],
-        }).then(() => {
-          alert("success");
-          router.push("/user/mainHome");
-        });
-      } catch (e) {
-        console.error("Error adding Data: ", e.message);
-      }
-    }
-  };
+  }
 
   useEffect(() => {
-    GetDSize();
-    GetdNuetrients();
-    GetDList();
-  }, [disease]);
+    GetDiseaseData()
+  }, [data])
 
-  const [pick, setPick] = useState(false);
+  const [pick, setPick] = useState(false)
 
   return (
     <>
       <div
-        style={{ backgroundColor: "#f7fafc" }}
+        style={{ backgroundColor: '#f7fafc' }}
         className="h-auto w-full  p-4 "
       >
         <div class="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-40 my-20">
@@ -126,7 +94,7 @@ export default function Bmi() {
                 <div class="mt-16 grid space-y-4">
                   <button
                     onClick={() => {
-                      setPick(!pick);
+                      setPick(!pick)
                     }}
                     class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
  hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
@@ -153,16 +121,16 @@ export default function Bmi() {
                             <>
                               <div
                                 onClick={() => {
-                                  setDisease(e);
-                                  setPick(false);
+                                  setDisease(e.Disease)
+                                  setPick(false)
                                 }}
                                 key={index}
-                                className=" m-1 flex items-center justify-center hover:cursor-pointer h-24 w-40 hover:scale-105  bg-gradient-to-br from-sky-100  to-sky-300 font-bold text-2xl rounded-xl"
+                                className="p-1 m-1 flex items-center justify-center hover:cursor-pointer h-24 w-40 hover:scale-105  bg-gradient-to-br from-sky-100  to-sky-300 font-bold text-2xl rounded-xl"
                               >
-                                {e}
+                                {e.Disease}
                               </div>
                             </>
-                          );
+                          )
                         })}
                       </ScrollMenu>
                     </div>
@@ -181,7 +149,7 @@ export default function Bmi() {
                       class={`slider w-full  `}
                       id="myRange"
                       onChange={(e) => {
-                        setSavour(e.target.value);
+                        setSavour(e.target.value)
                       }}
                     />
                     <div className="flex w-full ">
@@ -194,7 +162,7 @@ export default function Bmi() {
 
                     <div className="flex w-full h-auto justify-center mt-5">
                       <button
-                        onClick={sendDisease}
+                        onClick={setUserDiseaseData}
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                       >
                         Submit
@@ -208,7 +176,7 @@ export default function Bmi() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
 //[alergy1,allergy2]

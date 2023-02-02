@@ -23,7 +23,7 @@ export default function Footer() {
   };
 
   return (
-    <footer class="flex text-center justify-center bg-gray-900 text-white">
+    <footer class="flex text-center justify-center bg-gray-900 text-white w-full">
       <div class=" justify-center container px-6 pt-6">
         <div class="flex justify-center mb-6 ">
           <h1
