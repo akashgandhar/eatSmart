@@ -56,13 +56,14 @@ export default function MainHome() {
       quality: 1,
       width: 360,
       height: 640,
+      source:CameraSource.Photos
     }).then((uri) => {
       console.log(uri);
       // checkPic(uri);
       const metadata = {
         contentType: "image/jpeg",
       };
-      const storageRef = ref(storage, "images/test.jpeg");
+      const storageRef = ref(storage, `${u}}/test.jpeg`);
 
       try {
         uploadString(storageRef, uri.dataUrl, "data_url", metadata)
