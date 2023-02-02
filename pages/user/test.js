@@ -1,12 +1,12 @@
-import { db } from "@/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import React from "react";
+import { db } from '@/firebase'
+import { doc, setDoc } from 'firebase/firestore'
+import React from 'react'
 
 export default function Test() {
   const set = () => {
     data.forEach(async (e, index) => {
       try {
-        await setDoc(doc(db, "Disease_Data", e.Disease), {
+        await setDoc(doc(db, 'Disease_Data', e.Disease), {
           Disease: e.Disease,
           Calcium: e.Calcium,
           Iron: e.Iron,
@@ -23,28 +23,28 @@ export default function Test() {
           Potassium: e.Potassium,
           Total_Trans: e.Total_Trans,
           Total_Lipid: e.Total_Lipid,
-        });
+        })
       } catch (e) {
-        console.log(e.message);
+        console.log(e.message)
       }
-    });
-    console.log("done");
-  };
+    })
+    console.log('done')
+  }
 
   return (
     <button
       onClick={() => {
-        set();
+        set()
       }}
     >
       Test
     </button>
-  );
+  )
 }
 
 const data = [
   {
-    Disease: "Obesity",
+    Disease: 'Obesity',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -62,7 +62,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Type 2 diabetes",
+    Disease: 'Type 2 diabetes',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -80,7 +80,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Cardiovascular disease",
+    Disease: 'Cardiovascular disease',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 2.3,
@@ -98,7 +98,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "High blood pressure",
+    Disease: 'High blood pressure',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 1.0,
@@ -116,7 +116,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Cancer",
+    Disease: 'Cancer',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -134,7 +134,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Osteoporosis",
+    Disease: 'Osteoporosis',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 1.5,
@@ -152,7 +152,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Non-alcoholic fatty liver disease",
+    Disease: 'Non-alcoholic fatty liver disease',
     Calcium: 0.6,
     Iron: 0.0,
     Sodium: 1.2,
@@ -170,7 +170,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Metabolic syndrome",
+    Disease: 'Metabolic syndrome',
     Calcium: 0.6,
     Iron: 0.017,
     Sodium: 0.0,
@@ -188,7 +188,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Gout",
+    Disease: 'Gout',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 1.5,
@@ -206,7 +206,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Rheumatoid arthritis",
+    Disease: 'Rheumatoid arthritis',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -224,7 +224,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Multiple sclerosis",
+    Disease: 'Multiple sclerosis',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -260,7 +260,7 @@ const data = [
     Total_Lipid: 0.4,
   },
   {
-    Disease: "Hepatitis",
+    Disease: 'Hepatitis',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -278,7 +278,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Gallbladder disease",
+    Disease: 'Gallbladder disease',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -296,7 +296,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Kidney disease",
+    Disease: 'Kidney disease',
     Calcium: 1.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -350,7 +350,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Autism",
+    Disease: 'Autism',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -368,7 +368,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Acne",
+    Disease: 'Acne',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -386,7 +386,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Asthma",
+    Disease: 'Asthma',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 1.5,
@@ -404,7 +404,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Respiratory infections",
+    Disease: 'Respiratory infections',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 1.8,
@@ -422,7 +422,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Chronic fatigue syndrome",
+    Disease: 'Chronic fatigue syndrome',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -440,7 +440,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Insomnia",
+    Disease: 'Insomnia',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 3.5,
@@ -458,7 +458,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Premenstrual syndrome",
+    Disease: 'Premenstrual syndrome',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 4.0,
@@ -476,7 +476,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Polycystic ovary syndrome",
+    Disease: 'Polycystic ovary syndrome',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -494,7 +494,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Erectile dysfunction",
+    Disease: 'Erectile dysfunction',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -512,7 +512,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Prostate cancer",
+    Disease: 'Prostate cancer',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -530,7 +530,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Breast cancer",
+    Disease: 'Breast cancer',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -548,7 +548,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Lung cancer",
+    Disease: 'Lung cancer',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 1.7,
@@ -566,7 +566,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Pancreatic cancer",
+    Disease: 'Pancreatic cancer',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -584,7 +584,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Ovarian cancer",
+    Disease: 'Ovarian cancer',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -602,7 +602,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Endometrial cancer",
+    Disease: 'Endometrial cancer',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -620,7 +620,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Bladder cancer",
+    Disease: 'Bladder cancer',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -638,7 +638,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Kidney cancer",
+    Disease: 'Kidney cancer',
     Calcium: 0.5,
     Iron: 0.017,
     Sodium: 0.0,
@@ -656,7 +656,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Melanoma",
+    Disease: 'Melanoma',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -674,7 +674,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Liver cancer",
+    Disease: 'Liver cancer',
     Calcium: 0.0,
     Iron: 10.0,
     Sodium: 1.0,
@@ -692,7 +692,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "High cholesterol",
+    Disease: 'High cholesterol',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -710,7 +710,7 @@ const data = [
     Total_Lipid: 0.3,
   },
   {
-    Disease: "Diarrhea",
+    Disease: 'Diarrhea',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -728,7 +728,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Shortness of breath",
+    Disease: 'Shortness of breath',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 2.0,
@@ -746,7 +746,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "low blood pressure",
+    Disease: 'low blood pressure',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -764,7 +764,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "Stomach cramps",
+    Disease: 'Stomach cramps',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -782,7 +782,7 @@ const data = [
     Total_Lipid: 0.0,
   },
   {
-    Disease: "nausea",
+    Disease: 'nausea',
     Calcium: 0.0,
     Iron: 0.0,
     Sodium: 0.0,
@@ -799,4 +799,4 @@ const data = [
     Total_Trans: 0.0,
     Total_Lipid: 0.0,
   },
-];
+]

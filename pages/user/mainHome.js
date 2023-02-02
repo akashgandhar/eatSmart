@@ -60,7 +60,7 @@ export default function MainHome() {
       // quality: 20,
       width: 360,
       height: 640,
-      source: CameraSource.Photos,
+      source: CameraSource.Prompt,
     }).then((uri) => {
       console.log(uri);
       // checkPic(uri);
