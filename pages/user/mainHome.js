@@ -141,7 +141,7 @@ export default function MainHome() {
                         {product.map((e, index) => {
                           return (
                             // <button className="p-3 border-b border-gray-200 w-full">
-                            <div className="flex items-center justify-between">
+                            <div key={index} className="flex items-center justify-between">
                               <Button
                                 key={index}
                                 className="p-3 border-b border-gray-200 w-full"
