@@ -1,46 +1,46 @@
-import UserContext from "@/components/context/userContext";
-import { auth } from "@/firebase";
-import { Button, CircularProgress } from "@mui/material";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import UserContext from '@/components/context/userContext'
+import { auth } from '@/firebase'
+import { Button, CircularProgress } from '@mui/material'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { useRouter } from 'next/router'
+import React, { useContext, useEffect, useState } from 'react'
 
 export default function Login() {
-  const router = useRouter();
-  const a = useContext(UserContext);
-  const [email, setEmail] = useState("null");
-  const [password, setPassword] = useState("null");
-  const [isLoading, setIsLoading] = useState(false);
-  const u = useContext(UserContext);
-  const [eye, setEye] = useState(false);
+  const router = useRouter()
+  const a = useContext(UserContext)
+  const [email, setEmail] = useState('null')
+  const [password, setPassword] = useState('null')
+  const [isLoading, setIsLoading] = useState(false)
+  const u = useContext(UserContext)
+  const [eye, setEye] = useState(false)
 
   const handleSignIn = () => {
     try {
-      setIsLoading(true);
+      setIsLoading(true)
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
-          router.push("/user/mainHome");
+          const user = userCredential.user
+          router.push('/user/mainHome')
           // ...
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setIsLoading(false);
-        });
+          const errorCode = error.code
+          const errorMessage = error.message
+          setIsLoading(false)
+        })
     } catch (e) {
-      alert(e.message);
-      setIsLoading(false);
+      alert(e.message)
+      setIsLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
     if (u) {
-      router.push("/user/mainHome");
+      router.push('/user/mainHome')
     }
-  }, [u]);
+  }, [u])
 
   return (
     <div className="w-full h-screen ">
@@ -71,7 +71,7 @@ export default function Login() {
                         </label> */}
                         <input
                           onChange={(e) => {
-                            setEmail(e.target.value);
+                            setEmail(e.target.value)
                           }}
                           type="text"
                           name="name"
@@ -86,7 +86,7 @@ export default function Login() {
                         </label> */}
                         <input
                           onChange={(e) => {
-                            setPassword(e.target.value);
+                            setPassword(e.target.value)
                           }}
                           type="password"
                           name="name"
@@ -98,32 +98,32 @@ export default function Login() {
                       <div className="w-full flex justify-center items-center">
                         <Button
                           onClick={(e) => {
-                            console.log("clicked");
+                            console.log('clicked')
                             if (!email || !password) {
-                              alert("Enter Details");
+                              alert('Enter Details')
                             } else {
-                              if (email.includes("@")) {
-                                handleSignIn(e);
+                              if (email.includes('@')) {
+                                handleSignIn(e)
                               } else {
-                                alert("email wrong");
+                                alert('email wrong')
                               }
                             }
                           }}
                           variant="outlined"
                           color="success"
                         >
-                          {isLoading ? <CircularProgress /> : "Log In"}
+                          {isLoading ? <CircularProgress /> : 'Log In'}
                         </Button>
                       </div>
                     </div>
 
                     <div class="mt-16 space-y-4 text-gray-600 text-center sm:-mb-8">
                       <p class="text-xs">
-                        By proceeding, you agree to our{" "}
+                        By proceeding, you agree to our{' '}
                         <a href="#" class="underline">
                           Terms of Use
-                        </a>{" "}
-                        and confirm you have read our{" "}
+                        </a>{' '}
+                        and confirm you have read our{' '}
                         <a href="#" class="underline">
                           Privacy and Cookie Statement
                         </a>
@@ -145,6 +145,6 @@ export default function Login() {
         </div>
       </section>
     </div>
-  );
+  )
 }
 //open localhost:3000

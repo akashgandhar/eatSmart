@@ -16,7 +16,7 @@ const UserState = (props) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user.displayName);
+        setUser(user.email);
       } else {
         // console.log("logged out ");
         // router.push("/");

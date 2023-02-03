@@ -6,11 +6,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 
 export default function DiseaseSelect() {
-  const u = useContext(UserContext);
-  const router = useRouter();
-
+  const u = useContext(UserContext)
+  const router = useRouter()
 
   const [disease, setDisease] = useState('Select Disease')
+  const [allergy, setAllergy] = useState('Select Allergy')
   const [saveor, setSavour] = useState(1)
 
   const [data, setData] = useState([{ Disease: 'nill' }])
@@ -35,7 +35,7 @@ export default function DiseaseSelect() {
       data.forEach(async (e) => {
         if (e.Disease === disease) {
           try {
-            await setDoc(doc(db, `users/${u}/Disease_Data`, e.Disease), {
+            await setDoc(doc(db, `users/${u}/Disease_Data`, 'Disease'), {
               Disease: e.Disease,
               Severity: saveor,
               Calcium: e.Calcium * factor[saveor - 1],
@@ -53,8 +53,8 @@ export default function DiseaseSelect() {
               Potassium: e.Potassium * factor[saveor - 1],
               Total_Trans: e.Total_Trans * factor[saveor - 1],
               Total_Lipid: e.Total_Lipid * factor[saveor - 1],
-            }).then(()=>{
-              alert("success")
+            }).then(() => {
+              alert('success')
             })
           } catch (e) {
             console.log(e.message)
@@ -69,6 +69,7 @@ export default function DiseaseSelect() {
   }, [data])
 
   const [pick, setPick] = useState(false)
+  const [pick2, setPick2] = useState(false)
 
   return (
     <>
@@ -123,6 +124,51 @@ export default function DiseaseSelect() {
                                 onClick={() => {
                                   setDisease(e.Disease)
                                   setPick(false)
+                                }}
+                                key={index}
+                                className="p-1 m-1 flex items-center justify-center hover:cursor-pointer h-24 w-40 hover:scale-105  bg-gradient-to-br from-sky-100  to-sky-300 font-bold text-2xl rounded-xl"
+                              >
+                                {e.Disease}
+                              </div>
+                            </>
+                          )
+                        })}
+                      </ScrollMenu>
+                    </div>
+                  </div>
+                )}
+                <div class="mt-16 grid space-y-4">
+                  <button
+                    onClick={() => {
+                      setPick2(!pick2)
+                    }}
+                    class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                  >
+                    <div class="relative flex items-center space-x-4 justify-center">
+                      {/* <img
+                        src="https://tailus.io/sources/blocks/social/preview/images/google.svg"
+                        class="absolute left-0 w-5"
+                        alt="google logo"
+                      /> */}
+
+                      <span class="block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base">
+                        {allergy}
+                      </span>
+                    </div>
+                  </button>
+                </div>
+                {pick2 && (
+                  <div className="p-4 w-full rounded-2xl ">
+                    <div className=" justify-center rounded-xl p-2">
+                      <ScrollMenu>
+                        {data.map((e, index) => {
+                          return (
+                            <>
+                              <div
+                                onClick={() => {
+                                  setAllergy(e.Disease)
+                                  setPick2(false)
                                 }}
                                 key={index}
                                 className="p-1 m-1 flex items-center justify-center hover:cursor-pointer h-24 w-40 hover:scale-105  bg-gradient-to-br from-sky-100  to-sky-300 font-bold text-2xl rounded-xl"

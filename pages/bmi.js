@@ -1,104 +1,103 @@
-import UserContext from "@/components/context/userContext";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import { db, storage } from "@/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import UserContext from '@/components/context/userContext'
+import Footer from '@/components/footer'
+import Header from '@/components/header'
+import { db, storage } from '@/firebase'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { useContext, useEffect, useState } from 'react'
 
-export default function Bmi() {
-  const [gender, setGender] = useState();
-  const [fname, setFName] = useState();
-  const [lname, setLName] = useState();
-  const [height, setHeight] = useState(0);
-  const [weight, setWeight] = useState(0);
-  const user = useContext(UserContext);
+export default function Profile() {
+  const [gender, setGender] = useState()
+  const [fname, setFName] = useState()
+  const [lname, setLName] = useState()
+  const [height, setHeight] = useState(0)
+  const [weight, setWeight] = useState(0)
+  const user = useContext(UserContext)
 
-  const [bmi, setBmi] = useState();
+  const [bmi, setBmi] = useState()
 
-  const [profile, setProfile] = useState({ BMI: 0 });
+  const [profile, setProfile] = useState({ BMI: 0 })
 
   const GetBmi = async () => {
     try {
-      const docRef = doc(db, `users`, user);
-      const docSnap = await getDoc(docRef);
+      const docRef = doc(db, `users`, user)
+      const docSnap = await getDoc(docRef)
 
       if (docSnap.exists) {
-        setProfile(docSnap.data());
-        console.log(profile);
+        setProfile(docSnap.data())
+        console.log(profile)
       }
     } catch (e) {
-      console.log(e.message);
+      console.log(e.message)
     }
-  };
+  }
 
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
-    console.log(user);
-    console.log(profile);
+    console.log(user)
+    console.log(profile)
     if (profile.BMI > 0) {
-      router.push("/user/diseaseSelect");
+      router.push('/user/diseaseSelect')
     } else {
-      GetBmi();
+      GetBmi()
     }
-  }, [profile,user]);
+  }, [profile, user])
 
-  const [image, setImage] = useState("nil");
+  const [image, setImage] = useState('nil')
   const [imgUrl, setImgUrl] = useState(
-    "https://st3.depositphotos.com/13159112/17145/v/450/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg"
-  );
+    'https://st3.depositphotos.com/13159112/17145/v/450/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg',
+  )
 
   const handleUpload = (img) => {
-    const storageRef = ref(storage, `${user}/pic.jpg`);
-    const file = img;
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    const storageRef = ref(storage, `${user}/pic.jpg`)
+    const file = img
+    const uploadTask = uploadBytesResumable(storageRef, file)
     uploadTask.on(
-      "state_changed",
+      'state_changed',
       (snapshot) => {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       },
 
       (error) => {
         // Handle unsuccessful uploads
       },
       () => {
-        alert("uploaded");
+        alert('uploaded')
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImgUrl(downloadURL);
-        });
-      }
-    );
-  };
+          setImgUrl(downloadURL)
+        })
+      },
+    )
+  }
 
   const UpdateProfile = async () => {
     if (!fname || !lname || !gender || !height || !weight) {
-      alert("Enter Missing Details");
+      alert('Enter Missing Details')
     } else {
       try {
-        const docRef = `users`;
+        const docRef = `users`
         await updateDoc(doc(db, docRef, user), {
           First_Name: fname,
           Last_Name: lname,
           Gender: gender,
           Height: height,
           Weight: weight,
-          Name: fname + " " + lname,
+          Name: fname + ' ' + lname,
           BMI:
             Number(weight) / ((Number(height) / 100) * (Number(height) / 100)),
         }).then(() => {
-          router.push("/user/diseaseSelect");
-        });
+          router.push('/user/diseaseSelect')
+        })
       } catch (e) {
-        console.error("Error adding Data: ", e.message);
+        console.error('Error adding Data: ', e.message)
       }
     }
-  };
+  }
 
   return (
     <>
@@ -106,7 +105,7 @@ export default function Bmi() {
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1623150502742-6a849aa94be4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')",
-          backgroundSize: "cover",
+          backgroundSize: 'cover',
         }}
         class="min-h-screen w-full flex items-center justify-center bg-gray-50"
       >
@@ -123,7 +122,7 @@ export default function Bmi() {
             <section class="flex items-center justify-center ">
               <input
                 onChange={(e) => {
-                  setImage(e.target.files[0]);
+                  setImage(e.target.files[0])
                 }}
                 id="company"
                 type="file"
@@ -132,7 +131,7 @@ export default function Bmi() {
 
               <button
                 onClick={() => {
-                  handleUpload(image);
+                  handleUpload(image)
                 }}
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
               >
@@ -143,7 +142,7 @@ export default function Bmi() {
               <div class="bg-white flex min-h-[60px] flex-col-reverse justify-center rounded-md border border-gray-300  shadow-sm focus-within:shadow-inner">
                 <select
                   onChange={(e) => {
-                    setGender(e.target.value);
+                    setGender(e.target.value)
                   }}
                   type="text"
                   class="h-full peer block w-full border-0 p-0 text-base text-gray-900 placeholder-gray-400 focus:ring-0"
@@ -167,7 +166,7 @@ export default function Bmi() {
               <div class="bg-white first:flex min-h-[60px] flex-col-reverse justify-center rounded-md border border-gray-300  shadow-sm focus-within:shadow-inner">
                 <input
                   onChange={(e) => {
-                    setFName(e.target.value);
+                    setFName(e.target.value)
                   }}
                   type="text"
                   name="last-name"
@@ -187,7 +186,7 @@ export default function Bmi() {
               <div class="bg-white first:flex min-h-[60px] flex-col-reverse justify-center rounded-md border border-gray-300  shadow-sm focus-within:shadow-inner">
                 <input
                   onChange={(e) => {
-                    setLName(e.target.value);
+                    setLName(e.target.value)
                   }}
                   type="text"
                   name="last-name"
@@ -207,7 +206,7 @@ export default function Bmi() {
               <div class="bg-white flex min-h-[60px] flex-col-reverse justify-center rounded-md border border-gray-300  shadow-sm focus-within:shadow-inner">
                 <input
                   onChange={(e) => {
-                    setHeight(e.target.value);
+                    setHeight(e.target.value)
                   }}
                   type="number"
                   name="last-name"
@@ -227,7 +226,7 @@ export default function Bmi() {
               <div class="bg-white flex min-h-[60px] flex-col-reverse justify-center rounded-md border border-gray-300  shadow-sm focus-within:shadow-inner">
                 <input
                   onChange={(e) => {
-                    setWeight(e.target.value);
+                    setWeight(e.target.value)
                   }}
                   type="number"
                   name="email"
@@ -257,8 +256,8 @@ export default function Bmi() {
                   Number(weight) /
                   ((Number(height) / 100) * (Number(height) / 100))
                 )
-                  ? "bg-orange-400"
-                  : "bg-green-500"
+                  ? 'bg-orange-400'
+                  : 'bg-green-500'
               } ${
                 Number(weight) /
                   ((Number(height) / 100) * (Number(height) / 100)) <
@@ -266,19 +265,19 @@ export default function Bmi() {
                 Number(weight) /
                   ((Number(height) / 100) * (Number(height) / 100)) >
                   24.99
-                  ? "bg-red-500"
-                  : "bg-green-500"
+                  ? 'bg-red-500'
+                  : 'bg-green-500'
               } text-white  py-2 px-6 rounded-md `}
             >
-              BMI :{" "}
+              BMI :{' '}
               {Math.round(
                 Number(weight) /
-                  ((Number(height) / 100) * (Number(height) / 100))
+                  ((Number(height) / 100) * (Number(height) / 100)),
               )}
             </div>
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }
