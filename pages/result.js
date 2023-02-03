@@ -12,7 +12,7 @@ export default function Result() {
   const router = useRouter()
   const q = router.query
   const percentage = 66
-  const [pNutrients, setPNutrients] = useState()
+  const [pNutrients, setPNutrients] = useState([])
 
   const checkFood = async () => {
     const response = await axios
@@ -120,19 +120,22 @@ export default function Result() {
 
         <div class="flex overflow-x-scroll  pb-10 hide-scroll-bar ">
           <div class="flex flex-nowrap ">
-            {nutri.map((e, index) => {
-              return (
-                <div key={index} class="inline-block px-3 w-full">
-                  <Card
-                    color={e.color}
-                    name={e.name}
-                    severity={e.severity}
-                    value={e.value}
-                    serve={e.serve}
-                  />
-                  {/* <div class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div> */}
-                </div>
-              )
+            {pNutrients.map((e, index) => {
+              if (e.value > 0) {
+                return (
+                  <div key={index} class="inline-block px-3 w-full">
+                    <Card
+                      // data={{pNutrients}}
+                      color={e.color}
+                      name={e.nutrientName}
+                      severity={e.severity}
+                      value={e.value}
+                      serve={e.unitName}
+                    />
+                    {/* <div class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div> */}
+                  </div>
+                )
+              }
             })}
           </div>
         </div>
