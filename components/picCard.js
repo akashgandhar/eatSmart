@@ -60,7 +60,7 @@ export default function PicCard({ name, image, disc, disc2 }) {
                   Current Food Index
                 </h1>
                 <p class="inline text-gray-700 font-normal leading-6 w-full text-center">
-                  UX Researcher,
+                  "Calculated data"
                 </p>
               </div>
             </div>
@@ -83,10 +83,10 @@ export default function PicCard({ name, image, disc, disc2 }) {
             <div class="w-full md:w-3/5 space-y-4 flex flex-col justify-center items-center">
               <div class="flex flex-col justify-center">
                 <h1 class="text-center  text-2xl font-bold text-gray-900">
-                  Howell
+                  Daily Food Index
                 </h1>
                 <p class="inline text-gray-700 font-normal leading-6 w-full text-center">
-                  UX Researcher,
+                  "Calculated data"
                 </p>
               </div>
             </div>
