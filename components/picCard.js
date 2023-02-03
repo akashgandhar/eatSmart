@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
-export default function PicCard({ name, image, disc, disc2 }) {
-  const percentage = 66
+export default function PicCard({ name, image, disc, disc2, percent }) {
+  const percentage = percent.toFixed(2);
 
   return (
     <div>
