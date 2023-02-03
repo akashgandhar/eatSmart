@@ -47,7 +47,7 @@ export default function Register() {
             })
             .then(() => {
               alert("success");
-              router.push("/login");
+              router.push("/user/diseaseSelect");
               setIsLoading(false)
 
             });

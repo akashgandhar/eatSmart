@@ -22,7 +22,7 @@ export default function Login() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user
-          router.push('/user/mainHome')
+          router.push('/user/diseaseSelect')
           // ...
         })
         .catch((error) => {

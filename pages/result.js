@@ -91,7 +91,7 @@ export default function Result() {
   useEffect(() => {
     checkFood()
     // console.log(foodData)
-    console.log(pNutrients)
+    // console.log(pNutrients)
   }, [foodData])
 
   return (
