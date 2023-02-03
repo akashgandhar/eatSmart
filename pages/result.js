@@ -12,14 +12,28 @@ export default function Result() {
   const router = useRouter()
   const q = router.query
   const percentage = 66
+  const [pNutrients, setPNutrients] = useState()
 
   const checkFood = async () => {
-    const response = await axios.get(
-      `https://api.nal.usda.gov/fdc/v1/foods/search?query=${q.name}&pageSize=2&api_key=MbsrjC89NMdhdbDn7Rwu5Mb6Sh1v4u5beYP8dayn`,
-    )
+    const response = await axios
+      .get(
+        `https://api.nal.usda.gov/fdc/v1/foods/search?query=${q.name}&pageSize=2&api_key=MbsrjC89NMdhdbDn7Rwu5Mb6Sh1v4u5beYP8dayn`,
+      )
+
+      .catch((e) => {
+        console.log(e)
+      })
+
+    try {
+      setFoodData(response.data.foods[0])
+      setPNutrients(response.data.foods[0].foodNutrients)
+    } catch (e) {
+      console.log(e)
+    }
+    // console.log(foodData)
+
+    // setPNutrients(foodData.foodNutrients)
     // console.log(response.data.foods)
-    setFoodData(response.data.foods[0])
-    console.log(foodData)
   }
 
   const nutri = [
@@ -76,6 +90,8 @@ export default function Result() {
 
   useEffect(() => {
     checkFood()
+    // console.log(foodData)
+    console.log(pNutrients)
   }, [foodData])
 
   return (
