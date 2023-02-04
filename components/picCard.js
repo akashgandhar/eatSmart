@@ -76,7 +76,7 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
             </div>
             <div class="w-full md:w-3/5 space-y-4 flex flex-col justify-center items-center">
               <div class="flex flex-col justify-center">
-                <h1 class="text-center  text-2xl font-bold text-gray-900">
+                <h1 class="text-center  uppercase text-2xl font-bold text-gray-900">
                   {name}
                 </h1>
                 <p class="inline text-gray-700 font-normal leading-6 w-full text-center">
@@ -105,7 +105,7 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
                   src="https://images.pexels.com/photos/1820559/pexels-photo-1820559.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="woman wearing a headwrap and an Africa-shaped earring while smiling"
                 /> */}
-                <CircularProgressbar 
+                <CircularProgressbar
                   value={percentage < 100 ? percentage : 100}
                   text={`${percentage < 100 ? percentage : 100}%`}
                 />
