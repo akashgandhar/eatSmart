@@ -3,7 +3,7 @@ import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
 export default function PicCard({ name, image, disc, disc2, percent }) {
-  const percentage = percent.toFixed(2);
+  const percentage = percent.toFixed(2)
 
   return (
     <div>
@@ -60,7 +60,7 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
                   Current Food Index
                 </h1>
                 <p class="inline text-gray-700 font-normal leading-6 w-full text-center">
-                  "Calculated data"
+                  &quot;Calculated data&quot;
                 </p>
               </div>
             </div>
@@ -86,7 +86,7 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
                   Daily Food Index
                 </h1>
                 <p class="inline text-gray-700 font-normal leading-6 w-full text-center">
-                  "Calculated data"
+                  &quot;Calculated data&quot;
                 </p>
               </div>
             </div>
