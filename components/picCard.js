@@ -1,9 +1,61 @@
-import React, { useEffect } from 'react'
+import { db } from '@/firebase'
+import { doc, getDoc, increment, setDoc, updateDoc } from 'firebase/firestore'
+import React, { useContext, useEffect, useState } from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
+import UserContext from './context/userContext'
+import { useRouter } from 'next/router'
 
 export default function PicCard({ name, image, disc, disc2, percent }) {
   const percentage = percent.toFixed(2)
+  const router = useRouter()
+  const [percentage2, setPercentage2] = useState(0)
+  const [count, setCount] = useState(0)
+  const current = new Date()
+  const d = `${current.getDate()}-${current.getMonth()}-${current.getFullYear()}`
+
+  const time = new Intl.DateTimeFormat('en-IN', { timeStyle: 'medium' }).format(
+    current.getTime(),
+  )
+  const u = useContext(UserContext)
+
+  const saveData = async () => {
+    const docRef = doc(db, `users/${u}/History/`, d)
+    try {
+      await updateDoc(docRef, {
+        Last_Comsumed_Item: name,
+        Percent: increment(percent),
+        Count: increment(1),
+      }).then(() => {
+        console.log('done')
+      })
+    } catch {
+      await setDoc(docRef, {
+        Last_Comsumed_Item: name,
+        Percent: increment(percent),
+        Count: increment(1),
+      })
+        .catch((e) => {
+          console.log(e.message)
+        })
+        .then(() => {
+          console.log('done')
+        })
+    }
+    router.reload()
+  }
+
+  const getValue = async () => {
+    const docRef = doc(db, `users/${u}/History/`, d)
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+      setPercentage2(docSnap.data().Percent / docSnap.data().Count)
+    }
+  }
+
+  useEffect(() => {
+    getValue()
+  }, [percentage2, percentage, count])
 
   return (
     <div>
@@ -32,7 +84,12 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
                 </p>
               </div>
 
-              <button class="transition-colors bg-purple-700 hover:bg-purple-800 p-2 rounded-sm w-full text-white text-hover shadow-md shadow-purple-900">
+              <button
+                onClick={() => {
+                  saveData()
+                }}
+                class="transition-colors bg-purple-700 hover:bg-purple-800 p-2 rounded-sm w-full text-white text-hover shadow-md shadow-purple-900"
+              >
                 Consume Item
               </button>
             </div>
@@ -75,8 +132,8 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
                   alt="woman wearing a headwrap and an Africa-shaped earring while smiling"
                 /> */}
                 <CircularProgressbar
-                  value={percentage}
-                  text={`${percentage}%`}
+                  value={percentage2}
+                  text={`${percentage2.toFixed(2)}%`}
                 />
               </figure>
             </div>
