@@ -36,11 +36,11 @@ export default function Login() {
     }
   }
 
-  useEffect(() => {
-    if (u) {
-      router.push('/user/mainHome')
-    }
-  }, [u])
+  // useEffect(() => {
+  //   if (u) {
+  //     router.push('/user/mainHome')
+  //   }
+  // }, [u])
 
   return (
     <div className="w-full h-screen ">
