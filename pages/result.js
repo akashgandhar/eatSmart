@@ -235,6 +235,23 @@ export default function Result() {
     },
   ]
 
+  const current = new Date()
+  const d = `${current.getDate()}-${current.getMonth()}-${current.getFullYear()}`
+
+  const [percentage2, setPercentage2] = useState()
+
+  const getValue = async () => {
+    const docRef = doc(db, `users/${u}/History/`, d)
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+      setPercentage2(docSnap.data().Percent / docSnap.data().Count)
+    }
+  }
+
+  // useEffect(() => {
+  //   console.log(percentage2)
+  // }, [percentage2])
+
   const trim = () => {
     pNutrients.map((e, index) => {
       if (e.nutrientName === 'Iron, Fe') {
@@ -260,13 +277,14 @@ export default function Result() {
     actualData()
     trim()
     calculate()
+    getValue()
 
-    console.log(finalValue)
+    // console.log(finalValue, percentage2)
     // console.log(s2)
     // calculate()
     // console.log(d1)
     // console.log(pNutrients)
-  }, [foodData])
+  }, [foodData, percentage2])
 
   return (
     <div style={{ backgroundColor: '#f7fafc' }}>
@@ -279,7 +297,8 @@ export default function Result() {
         fghj
       </Button> */}
       <PicCard
-        percent={finalValue}
+        perc={percentage2}
+        percent={finalValue > 100.000000 ? 100 : finalValue}
         image={q.image}
         name={q.name}
         disc={foodData ? foodData.foodCategory : 'NIL'}

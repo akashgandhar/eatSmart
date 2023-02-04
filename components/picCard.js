@@ -6,10 +6,10 @@ import 'react-circular-progressbar/dist/styles.css'
 import UserContext from './context/userContext'
 import { useRouter } from 'next/router'
 
-export default function PicCard({ name, image, disc, disc2, percent }) {
+export default function PicCard({ name, image, disc, disc2, percent, perc }) {
   const percentage = percent.toFixed(2)
   const router = useRouter()
-  const [percentage2, setPercentage2] = useState(0)
+  // const [percentage2, setPercentage2] = useState(0)
   const [count, setCount] = useState(0)
   const current = new Date()
   const d = `${current.getDate()}-${current.getMonth()}-${current.getFullYear()}`
@@ -24,7 +24,7 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
     try {
       await updateDoc(docRef, {
         Last_Comsumed_Item: name,
-        Percent: increment(percent),
+        Percent: increment(percentage),
         Count: increment(1),
       }).then(() => {
         console.log('done')
@@ -32,7 +32,7 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
     } catch {
       await setDoc(docRef, {
         Last_Comsumed_Item: name,
-        Percent: increment(percent),
+        Percent: percentage,
         Count: 0,
       })
         .catch((e) => {
@@ -42,20 +42,13 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
           console.log('done')
         })
     }
-    router.reload()
-  }
-
-  const getValue = async () => {
-    const docRef = doc(db, `users/${u}/History/`, d)
-    const docSnap = await getDoc(docRef)
-    if (docSnap.exists()) {
-      setPercentage2(docSnap.data().Percent / docSnap.data().Count)
-    }
+    alert('You successfully Consumed The Food')
+    router.push('/user/mainHome')
   }
 
   useEffect(() => {
-    getValue()
-  }, [percentage2, percentage, count])
+    console.log(percentage)
+  }, [percentage, count])
 
   return (
     <div>
@@ -132,8 +125,8 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
                   alt="woman wearing a headwrap and an Africa-shaped earring while smiling"
                 /> */}
                 <CircularProgressbar
-                  value={percentage2 < 100 ? percentage2 : 100}
-                  text={`${percentage2 < 100 ? percentage2 : 100}%`}
+                  value={perc < 100 ? perc : 100}
+                  text={`${perc < 100 ? perc : 100}%`}
                 />
               </figure>
             </div>

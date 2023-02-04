@@ -86,15 +86,17 @@ export default function Card({ color, severity, name, value, serve }) {
       <div
         // style={{ backgroundColor: `${color}` }}
         class={` w-36 h-20  rounded-full ${
-          value > res
+          value > res && res!=0
             ? 'bg-red-500'
             : 'bg-gradient-to-tr from-green-600 to-lime-400'
         } shadow-2xl ${
-          value > res ? 'shadow-red-500' : 'shadow-green-400'
+          value > res && res!=0? 'shadow-red-500' : 'shadow-green-400'
         } border-white  border-dashed border-2  flex justify-center items-center `}
       >
         <div>
-          <h1 class="text-white text-2xl">{value > res ? 'Harm' : 'Basic'}</h1>
+          <h1 class="text-white text-2xl">
+            {value > res && res != 0 ? 'Harm' : 'Basic'}
+          </h1>
         </div>
       </div>
     </div>
