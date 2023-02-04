@@ -33,7 +33,7 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
       await setDoc(docRef, {
         Last_Comsumed_Item: name,
         Percent: increment(percent),
-        Count: increment(1),
+        Count: 0,
       })
         .catch((e) => {
           console.log(e.message)
@@ -105,7 +105,7 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
                   src="https://images.pexels.com/photos/1820559/pexels-photo-1820559.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="woman wearing a headwrap and an Africa-shaped earring while smiling"
                 /> */}
-                <CircularProgressbar
+                <CircularProgressbar 
                   value={percentage < 100 ? percentage : 100}
                   text={`${percentage < 100 ? percentage : 100}%`}
                 />
@@ -132,8 +132,8 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
                   alt="woman wearing a headwrap and an Africa-shaped earring while smiling"
                 /> */}
                 <CircularProgressbar
-                  value={percentage2}
-                  text={`${percentage2.toFixed(2)}%`}
+                  value={percentage2 < 100 ? percentage2 : 100}
+                  text={`${percentage2 < 100 ? percentage2 : 100}%`}
                 />
               </figure>
             </div>

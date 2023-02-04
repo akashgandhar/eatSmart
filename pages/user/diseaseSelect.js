@@ -28,6 +28,35 @@ export default function DiseaseSelect() {
     setData(list)
   }
 
+  var data3 = [
+    'Lactose',
+    'Gluten',
+    'Lupin',
+    'Celery',
+    'Crustaceans',
+    'Eggs',
+    'Fish',
+    'Molluscs',
+    'Mustard',
+    'Nuts',
+    'Peanuts',
+    'Seasme Seeds',
+    'Soy',
+    'Sulphite',
+  ]
+
+  const setAllergyData = async () => {
+    if (!allergy) {
+      alert('Enter Data')
+    } else {
+      try {
+        await setDoc(doc(db, `users/${u}/Disease_Data`, 'Allergies'), {
+          Name: allergy,
+        })
+      } catch (e) {}
+    }
+  }
+
   const setUserDiseaseData = async () => {
     if (!disease || !saveor) {
       alert('Select Disease Disease')
@@ -53,9 +82,16 @@ export default function DiseaseSelect() {
               Potassium: e.Potassium * factor[saveor - 1],
               Total_Trans: e.Total_Trans * factor[saveor - 1],
               Total_Lipid: e.Total_Lipid * factor[saveor - 1],
-            }).then(() => {
-              alert('success')
             })
+              .then(() => {
+                setAllergyData()
+              })
+              .then(() => {
+                alert('success')
+              })
+              .then(() => {
+                router.push('/user/mainHome')
+              })
           } catch (e) {
             console.log(e.message)
           }
@@ -162,18 +198,18 @@ export default function DiseaseSelect() {
                   <div className="p-4 w-full rounded-2xl ">
                     <div className=" justify-center rounded-xl p-2">
                       <ScrollMenu>
-                        {data.map((e, index) => {
+                        {data3.map((e, index) => {
                           return (
                             <>
                               <div
                                 onClick={() => {
-                                  setAllergy(e.Disease)
+                                  setAllergy(e)
                                   setPick2(false)
                                 }}
                                 key={index}
                                 className="p-1 m-1 flex items-center justify-center hover:cursor-pointer h-24 w-40 hover:scale-105  bg-gradient-to-br from-sky-100  to-sky-300 font-bold text-2xl rounded-xl"
                               >
-                                {e.Disease}
+                                {e}
                               </div>
                             </>
                           )

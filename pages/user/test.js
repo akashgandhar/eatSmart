@@ -3,6 +3,33 @@ import { doc, setDoc } from 'firebase/firestore'
 import React from 'react'
 
 export default function Test() {
+  var data3 = [
+    'Lactose',
+    'Gluten',
+    'Lupin',
+    'Celery',
+    'Crustaceans',
+    'Eggs',
+    'Fish',
+    'Molluscs',
+    'Mustard',
+    'Nuts',
+    'Peanuts',
+    'Seasme Seeds',
+    'Soy',
+    'Sulphite',
+  ]
+
+  const set2 = () => {
+    data3.forEach(async (e) => {
+      try {
+        await setDoc(doc(db,"Allergy_Data",e),{
+          Name: e
+        })
+      } catch (e) {}
+    })
+  }
+
   const set = () => {
     data.forEach(async (e, index) => {
       try {
@@ -34,7 +61,7 @@ export default function Test() {
   return (
     <button
       onClick={() => {
-        set()
+        set2()
       }}
     >
       Test
