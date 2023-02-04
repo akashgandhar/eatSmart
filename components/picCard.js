@@ -106,8 +106,8 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
                   alt="woman wearing a headwrap and an Africa-shaped earring while smiling"
                 /> */}
                 <CircularProgressbar
-                  value={percentage}
-                  text={`${percentage}%`}
+                  value={percentage < 100 ? percentage : 100}
+                  text={`${percentage < 100 ? percentage : 100}%`}
                 />
               </figure>
             </div>

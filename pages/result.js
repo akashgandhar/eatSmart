@@ -235,9 +235,30 @@ export default function Result() {
     },
   ]
 
+  const trim = () => {
+    pNutrients.map((e, index) => {
+      if (e.nutrientName === 'Iron, Fe') {
+        pNutrients[index].value = e.value / 100
+      } else if (e.nutrientName === 'Vitamin C, total ascorbic acid') {
+        pNutrients[index].value = e.value / 100
+      } else if (e.nutrientName === 'Potassium, K') {
+        pNutrients[index].value = e.value / 100
+      } else if (e.nutrientName === 'Calcium, Ca') {
+        pNutrients[index].value = e.value / 100
+      } else if (e.nutrientName === 'Sodium, Na') {
+        pNutrients[index].value = e.value / 100
+      } else if (e.nutrientName === 'Cholesterol') {
+        pNutrients[index].value = e.value / 100
+      } else if (e.nutrientName === 'Vitamin A, IU') {
+        pNutrients[index].value = e.value * 0.003
+      }
+    })
+  }
+
   useEffect(() => {
     checkFood()
     actualData()
+    trim()
     calculate()
 
     console.log(finalValue)

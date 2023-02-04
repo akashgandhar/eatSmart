@@ -79,7 +79,9 @@ export default function Card({ color, severity, name, value, serve }) {
         >
           {value}
         </h3>
-        <p class="text-sm font-semibold text-gray-400">Recommended Limit: {res}</p>
+        <p class="text-sm font-semibold text-gray-400">
+          Recommended Limit: {res}
+        </p>
       </div>
       <div
         // style={{ backgroundColor: `${color}` }}
