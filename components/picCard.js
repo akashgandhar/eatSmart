@@ -80,7 +80,7 @@ export default function PicCard({ name, image, disc, disc2, percent }) {
                   {name}
                 </h1>
                 <p class="inline text-gray-700 font-normal leading-6 w-full text-center">
-                  {disc + ', ' + disc2}
+                  {/* {disc + ', ' + disc2} */}
                 </p>
               </div>
 
